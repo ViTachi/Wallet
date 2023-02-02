@@ -1,8 +1,8 @@
-Shader "Tutorial/049_SpriteOutline"{
+Shader "UI/Outline"{
   Properties{
     _Color ("Tint", Color) = (0, 0, 0, 1)
     _OutlineColor ("OutlineColor", Color) = (1, 1, 1, 1)
-    _OutlineWidth ("OutlineWidth", Range(-5, 5)) = 1
+    _OutlineWidth ("OutlineWidth", Range(0, 15)) = 1
     _MainTex ("Texture", 2D) = "white" {}
   }
 
@@ -87,6 +87,7 @@ Shader "Tutorial/049_SpriteOutline"{
         }
 
         //apply border
+
         col.rgb = lerp(_OutlineColor.rgb, col.rgb, col.a);
         col.a = max(col.a, maxAlpha);
 
@@ -95,4 +96,5 @@ Shader "Tutorial/049_SpriteOutline"{
       ENDCG
     }
   }
+Fallback "UI/Default"
 }
