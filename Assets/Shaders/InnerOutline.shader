@@ -20,7 +20,7 @@ Shader "UI/InnerOutline"{
     Pass{
       CGPROGRAM
 // Upgrade NOTE: excluded shader from DX11, OpenGL ES 2.0 because it uses unsized arrays
-#pragma exclude_renderers d3d11 gles
+//#pragma exclude_renderers d3d11 gles
 
       #include "UnityCG.cginc"
 
@@ -92,7 +92,6 @@ Shader "UI/InnerOutline"{
 
         //apply border
         col.rgb = lerp( _OutlineColor.rgb, col.rgb, includeAlpha);
-
         return col;
       }
 
@@ -100,5 +99,5 @@ Shader "UI/InnerOutline"{
     }
   }
 
-    Fallback "UI/Default"
+      FallBack "UI/Default"
 }

@@ -2,6 +2,21 @@ public class UIScreens : Singleton<UIScreens>
 {
     private IScreenElement[] screenElements;
 
+    private enum ScreenType
+    {
+        MainScreen, StatsScreen, SettingsScreen 
+    }
+
+    public struct Screen
+    {
+
+    }
+
+    public void ShowScreen()
+    {
+
+    }
+
     public T GetElement<T>() where T : IScreenElement
     {
         for (int i = 0; i < screenElements.Length; i++)
