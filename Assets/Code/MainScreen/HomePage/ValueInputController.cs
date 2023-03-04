@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class ValueInputController : MonoBehaviour
     [SerializeField] private List<NumberInputButton> numberButtons;
     [SerializeField] private Button dotButton;
     [SerializeField] private Button backspaceButton;
+
+    public event Action<float> OnChangeValue;
+    public float CurrentVulue => CalculateValue();
 
     private int wholeValue;
     private int fractionalValue;
@@ -47,7 +51,9 @@ public class ValueInputController : MonoBehaviour
 
         fractionalValue = 0;
         fractionalNumbersCount = 0;
-        SetFractionalctive(false);
+        SetFractionalActive(false);
+
+        OnChangeValue?.Invoke(CurrentVulue);
     }
 
     private void OnNumberButtonClicked(int number)
@@ -78,11 +84,13 @@ public class ValueInputController : MonoBehaviour
                 if (parseComplete) wholeValue = resault;
             }
         }
+
+        OnChangeValue?.Invoke(CurrentVulue);
     }
 
     private void OnDotButtonClicked()
     {
-        SetFractionalctive(true);
+        SetFractionalActive(true);
     }
 
     private void OnBackspaceButtonClicked()
@@ -91,7 +99,7 @@ public class ValueInputController : MonoBehaviour
         {
             if (fractionalNumbersCount == 0)
             {
-                SetFractionalctive(false);
+                SetFractionalActive(false);
                 OnBackspaceButtonClicked();
             }
             string text = "";
@@ -120,11 +128,18 @@ public class ValueInputController : MonoBehaviour
             bool parseComplete = int.TryParse(wholeValueText.text, out int resault);
             if (parseComplete) wholeValue = resault;
         }
+
+        OnChangeValue?.Invoke(CurrentVulue);
     }
 
-    private void SetFractionalctive(bool active)
+    private void SetFractionalActive(bool active)
     {
         isFractionalInput = active;
         fractionalValueText.color = active ? activeFractionalColor : disableFractionalColor;
+    }
+
+    private float CalculateValue()
+    {
+        return float.Parse($"{wholeValue},{fractionalValue}");
     }
 }

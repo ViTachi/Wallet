@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainScreen : MonoBehaviour
+public class MainScreen : MonoBehaviour, IScreenElement
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Hide(bool immediately = false)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Show(bool immediately = false)
     {
-        
+
     }
+
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DebugMode : MonoBehaviour
 {
-    private static bool isDebugMode =false;
+    private static bool isDebugMode = false;
     public static bool IsDebugMode => isDebugMode;
 
     public static event Action<bool> OnModeChanged;
