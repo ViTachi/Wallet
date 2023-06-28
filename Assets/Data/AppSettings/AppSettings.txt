@@ -1,0 +1,34 @@
+{
+  "mainSettings": {
+    "themeIdByDefault": "s1"
+  },
+  "currenciesSettings": {},
+  "accountsSettings": {
+    "accounts": [
+      {
+        "id": "default",
+        "name": "account default",
+        "icon": "Bitcoin",
+        "currency": "RUB",
+        "balance": 100.0
+      },
+      {
+        "id": "ac2",
+        "name": "account 2",
+        "icon": "Visa",
+        "currency": "EUR",
+        "balance": 0.0
+      }
+    ],
+    "selectedAccountIdByDefault": "default"
+  },
+  "incomeSourceSettings": {
+    "incomeSources": [
+      {
+        "id": "0",
+        "name": "source default",
+        "icon": "Savings"
+      }
+    ]
+  }
+}

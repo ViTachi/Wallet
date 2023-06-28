@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1d8a13e91b80f419333ae83b56cc30, type: 3}
+  m_Name: AppSettings
+  m_EditorClassIdentifier: 
+  appSettingsJson: {fileID: 4900000, guid: a6be264acb9a2fd43954a8f6577dfec3, type: 3}
+  appSettingsData:
+    mainSettings:
+      themeIdByDefault: s1
+    currenciesSettings:
+      currencies:
+      - {fileID: 11400000, guid: 57c83d89811e010438559a74ab2a3111, type: 2}
+      - {fileID: 11400000, guid: 9be0cc3e327ef0545ab9ff8bf6a428b1, type: 2}
+      - {fileID: 11400000, guid: 713b456b49011ff4082195e532607526, type: 2}
+      - {fileID: 11400000, guid: d258346f2ff927c41bfabebc9e127ea3, type: 2}
+    accountsSettings:
+      accounts:
+      - id: default
+        name: account default
+        icon: 2
+        currency: 1
+        balance: 100
+      - id: ac2
+        name: account 2
+        icon: 1
+        currency: 3
+        balance: 0
+      selectedAccountIdByDefault: default
+      accountIcons:
+      - {fileID: 11400000, guid: 6a9097d42b03e19468115f01d3fd2071, type: 2}
+      - {fileID: 11400000, guid: 9b270dfd8afc1ed409676333b661f3ce, type: 2}
+      - {fileID: 11400000, guid: 3b287b8e2d0e7f24d9588a7eb6b3e8ab, type: 2}
+    incomeSourceSettings:
+      incomeSources:
+      - id: 0
+        name: source default
+        icon: 1
+      incomeSourceIcons:
+      - {fileID: 11400000, guid: 5137937ff129ccb449842fd51a48e1ad, type: 2}

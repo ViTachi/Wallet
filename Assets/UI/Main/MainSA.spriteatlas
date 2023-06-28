@@ -50,31 +50,41 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: fcc5ff213f5669644acc21dd88d96134, type: 3}
+  - {fileID: 21300000, guid: edbf4632710cf1445b96f23b6054c842, type: 3}
+  - {fileID: 21300000, guid: f5f46582cf256ce4fbf9848c3a5d3a0f, type: 3}
   - {fileID: 21300000, guid: 64532ce2f995eea4ca3e92fe93f8bda5, type: 3}
   - {fileID: 21300000, guid: 8aab0ff242f1c5c4e9e25e9f98101a36, type: 3}
   - {fileID: 21300000, guid: 94e5d263c3aa02646b1988b3616cb86a, type: 3}
-  - {fileID: 21300000, guid: feac6b24c1f2abf4398fe10336f2de2e, type: 3}
   - {fileID: 21300000, guid: 6b4b7ab4510784067b289f021108c5aa, type: 3}
   - {fileID: 21300000, guid: 7050dc35968508e4683dac064422bdc9, type: 3}
   - {fileID: 21300000, guid: ebfed08544048cc47b84ae54bac9847c, type: 3}
+  - {fileID: 21300000, guid: 91f131d7b9a6e4a4290f86098fcffe6d, type: 3}
   - {fileID: 21300000, guid: 2457f0eacea7ebd46a13dadbbdd5ffd4, type: 3}
-  - {fileID: 21300000, guid: ca811c2bbd9ce074ba205680450aab11, type: 3}
+  - {fileID: 21300000, guid: 617e61eac42de3b4e8f497c7f2e6b887, type: 3}
+  - {fileID: 21300000, guid: ed16490d21c15b142b65c7894571d1b8, type: 3}
   - {fileID: 21300000, guid: dddb742d15edc2644bc5893ddc602c9c, type: 3}
+  - {fileID: 21300000, guid: 02881c6d20a96614089d4823eb1ed59d, type: 3}
   - {fileID: 21300000, guid: 435e11be0679ebc4a8997f70aedab962, type: 3}
+  - {fileID: 21300000, guid: 842630ee8181c5f47bd3674dd4311c83, type: 3}
+  - {fileID: 21300000, guid: c6b720dfb4ff2b046b2e60b3056ea6e0, type: 3}
   m_PackedSpriteNamesToIndex:
-  - setting
+  - credit-card-single-line
+  - money-real
   - CircleMini
   - Calendar
   - Circle
-  - MoneyBag
   - SoftQuad
-  - pie chart
+  - PieChart
   - Back
-  - wallet 2
-  - bar chart
-  - home 5
+  - Settings
+  - Wallet
+  - Trash_Full
+  - Check
+  - Home
+  - Close_MD
   - Write
+  - money-real
+  - money-real
   m_RenderDataMap: {}
   m_Tag: MainSA
   m_IsVariant: 0

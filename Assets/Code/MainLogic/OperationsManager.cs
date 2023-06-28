@@ -2,9 +2,11 @@ using System;
 
 public class OperationsManager : Singleton<OperationsManager>
 {
-    private OperationData currentOperationData;
+    private ExpenseOperationData currentOperationData;
+    public ExpenseOperationData CurrentOperationData => currentOperationData;
 
-    private bool customDate = false;
+    private bool isCustomDate = false;
+    public bool IsCustomDate => isCustomDate;
 
     public bool IsOperationNoteEmpty => string.IsNullOrEmpty(currentOperationData.Note);
 
@@ -12,54 +14,54 @@ public class OperationsManager : Singleton<OperationsManager>
 
     public void SetValue(float value)
     {
-        currentOperationData.Value = value;
+        currentOperationData.SetValue(value);
     }
 
-    public void SetCategory(Category category)
+    public void SetCurrentAccount(Account account)
     {
-        currentOperationData.CategoryId = category.Id;
+        currentOperationData.SetAccountId(account.Id);
     }
 
     public void SetNote(string note)
     {
-        currentOperationData.Note = note;
+        currentOperationData.SetNote(note);
     }
 
     public void DeleteNote()
     {
-        currentOperationData.Note = "";
+        currentOperationData.SetNote(string.Empty);
     }
 
     public void SetCustomDate(DateTime dateTime)
     {
-        customDate = true;
-        currentOperationData.Date = dateTime;
+        isCustomDate = true;
+        currentOperationData.SetDate(dateTime);
     }
 
     public void ClearCustomDate()
     {
-        customDate = false;
-        currentOperationData.Date = default;
+        isCustomDate = false;
+        currentOperationData.SetDate(default);
     }
 
     public bool SaveOperation()
     {
-        if (currentOperationData.Value == 0 || string.IsNullOrEmpty(currentOperationData.CategoryId))
+        if (currentOperationData.Value == 0 || string.IsNullOrEmpty(currentOperationData.AccountId))
         {
             return false;
         }
-        if (!customDate)
+        if (!isCustomDate)
         {
-            currentOperationData.Date = System.DateTime.UtcNow;
+            currentOperationData.SetDate(DateTime.UtcNow);
         }
-        DataSaver.SaveData.Operations.Add(currentOperationData);
-        DataSaver.Save();
-        currentOperationData = new OperationData();
+        SaveData.Instance.OperationsData.AddOperation(currentOperationData);
+        SaveData.Save();
+        currentOperationData = new ExpenseOperationData();
         return true;
     }
 
     protected override void Setup()
     {
-        currentOperationData = new OperationData();
+        currentOperationData = new ExpenseOperationData();
     }
 }

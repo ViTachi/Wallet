@@ -4,8 +4,7 @@ public class Runtime : MonoBehaviour
 {
     private void Awake()
     {
-        Application.targetFrameRate = 60;
-        DataSaver.Load("SaveData");
+        Application.targetFrameRate = 60;       
         PremiumMode.SetMode(PremiumMode.Mode.Default);
     }
 }
