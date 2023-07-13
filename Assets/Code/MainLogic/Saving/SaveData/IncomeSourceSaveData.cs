@@ -8,8 +8,19 @@ public class IncomeSourceSaveData
     [JsonIgnore] public IReadOnlyList<IncomeSource> IncomeSources => incomeSources;
     public void AddIncomeSource(IncomeSource incomeSource)
     {
-        if (!incomeSources.Any(x => x.Id == incomeSource.Id))
+        if (!IncomeSources.Any(x => x.Id == incomeSource.Id))
+        {
             incomeSources.Add(incomeSource);
+            SaveData.Save();
+        }
+
     }
-    public void RemoveIncomeSource(IncomeSource incomeSource) => incomeSources.Remove(incomeSource);
+    public void RemoveIncomeSource(IncomeSource incomeSource)
+    {
+        if (IncomeSources.Contains(incomeSource))
+        {
+            incomeSources.Remove(incomeSource);
+            SaveData.Save();
+        }
+    }
 }

@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7374571068358861467}
   - component: {fileID: 2373789609742187929}
+  - component: {fileID: 2410649515215394237}
   m_Layer: 5
   m_Name: BottomPanel
   m_TagString: Untagged
@@ -602,6 +603,20 @@ MonoBehaviour:
   emptyAreaButton: {fileID: 3131760492410322794}
   panelRT: {fileID: 2263076943690091172}
   fadeGroup: {fileID: 5456075295478393084}
+--- !u!114 &2410649515215394237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448763874990334726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7481792289083899881
 GameObject:
   m_ObjectHideFlags: 0

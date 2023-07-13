@@ -7,8 +7,9 @@ public class AccountsSaveData
     [JsonProperty] private List<Account> accounts = new List<Account>();
     [JsonProperty] private string selectedAccountId = null;
 
+    public event System.Action OnAccountsChanged;
     public event System.Action OnSelectAccount;
-    [JsonIgnore] public Account SelectedAccount => GetAccount(selectedAccountId);
+    [JsonIgnore] public Account SelectedAccount => GetAccount(SelectedAccountId);
 
     [JsonIgnore]
     public IReadOnlyList<Account> Accounts
@@ -45,9 +46,21 @@ public class AccountsSaveData
 
     public void AddAccount(Account account)
     {
-        if (!accounts.Any(x => x.Id == account.Id))
+        if (!Accounts.Any(x => x.Id == account.Id))
+        {
             accounts.Add(account);
+            OnAccountsChanged?.Invoke();
+            SaveData.Save();
+        }    
     }
-    public void RemoveAccount(Account account) => accounts.Remove(account);
-    public Account GetAccount(string id) => accounts.Find(x => x.Id == id);
+    public void RemoveAccount(Account account)
+    {
+        if (Accounts.Contains(account))
+        {
+            accounts.Remove(account);
+            OnAccountsChanged?.Invoke();
+            SaveData.Save();
+        }
+    }
+    public Account GetAccount(string id) => Accounts.Where(x => x.Id == id).FirstOrDefault();
 }

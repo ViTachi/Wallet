@@ -52,6 +52,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: edbf4632710cf1445b96f23b6054c842, type: 3}
   - {fileID: 21300000, guid: f5f46582cf256ce4fbf9848c3a5d3a0f, type: 3}
+  - {fileID: 21300000, guid: a5f9c5b2f9565ac4580433370defb088, type: 3}
   - {fileID: 21300000, guid: 64532ce2f995eea4ca3e92fe93f8bda5, type: 3}
   - {fileID: 21300000, guid: 8aab0ff242f1c5c4e9e25e9f98101a36, type: 3}
   - {fileID: 21300000, guid: 94e5d263c3aa02646b1988b3616cb86a, type: 3}
@@ -59,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7050dc35968508e4683dac064422bdc9, type: 3}
   - {fileID: 21300000, guid: ebfed08544048cc47b84ae54bac9847c, type: 3}
   - {fileID: 21300000, guid: 91f131d7b9a6e4a4290f86098fcffe6d, type: 3}
+  - {fileID: 21300000, guid: 24e60baaaa890794987375c45fca29c9, type: 3}
   - {fileID: 21300000, guid: 2457f0eacea7ebd46a13dadbbdd5ffd4, type: 3}
   - {fileID: 21300000, guid: 617e61eac42de3b4e8f497c7f2e6b887, type: 3}
   - {fileID: 21300000, guid: ed16490d21c15b142b65c7894571d1b8, type: 3}
@@ -70,6 +72,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - credit-card-single-line
   - money-real
+  - BackIcon
   - CircleMini
   - Calendar
   - Circle
@@ -77,11 +80,12 @@ SpriteAtlas:
   - PieChart
   - Back
   - Settings
+  - SearchIcon
   - Wallet
   - Trash_Full
   - Check
   - Home
-  - Close_MD
+  - CrossIcon
   - Write
   - money-real
   - money-real

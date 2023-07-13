@@ -6,12 +6,15 @@ public class SelectAccountPanel : MonoBehaviour, IScreenElement
     [SerializeField] private BottomPanel bottomPanel;   
     [SerializeField] private RectTransform accountsParent;   
     [SerializeField] private AccountView accountViewPrefab;
+    [SerializeField] private ScalableButton createAccountButton;
 
     private Dictionary<AccountView, Account> accounts = new Dictionary<AccountView, Account>();
 
     private void Awake()
     {
-
+        SetAccounts();
+        SaveData.Instance.AccountsData.OnAccountsChanged += SetAccounts;
+        createAccountButton.OnClick.AddListener(OnCreateAccountClicked);
     }
 
     private void SetAccounts()
@@ -38,6 +41,11 @@ public class SelectAccountPanel : MonoBehaviour, IScreenElement
         {
             account.Key.SetIsSelected(SaveData.Instance.AccountsData.SelectedAccountId == account.Value.Id);
         }
+    }
+
+    private void OnCreateAccountClicked()
+    {
+        UIScreens.Instance.ShowElement<CreateAccountPanel>();
     }
 
     private void ClearAccounts()
