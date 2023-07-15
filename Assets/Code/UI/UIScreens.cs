@@ -7,10 +7,6 @@ public class UIScreens : Singleton<UIScreens>
 
     public T GetElement<T>() where T : IScreenElement
     {
-        // for (int i = 0; i < screenElements.Length; i++)
-        // {
-        //     if (screenElements[i] is T) return (T)screenElements[i];
-        // }
         screenElements.TryGetValue(typeof(T), out IScreenElement element);
         return element == default ? default : (T)element;
     }

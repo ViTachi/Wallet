@@ -9,5 +9,5 @@ public class AccountIcon : IconData
 
 public enum AccountIconType
 {
-    Money, Visa, Bitcoin
+    None, Money, Visa, Bitcoin
 }

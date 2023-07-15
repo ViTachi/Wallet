@@ -16,6 +16,7 @@ public class Currency : ScriptableObject
 
 public enum CurrencyType
 {
+    None,
     USD,
     RUB,
     BYR,
