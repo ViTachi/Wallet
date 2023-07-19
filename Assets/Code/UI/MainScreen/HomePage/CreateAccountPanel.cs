@@ -65,19 +65,10 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
 
     }
 
-    private void OpenPanel(RectTransform panel)
-    {
-
-    }
-
-    private void ClosePanel(RectTransform panel)
-    {
-
-    }
-
     public void Show(bool immediately = false)
     {
         selectCurrencyPanel.Hide(true);
+        ShowContent(true);
 
         bottomPanel.Show(immediately);
     }
