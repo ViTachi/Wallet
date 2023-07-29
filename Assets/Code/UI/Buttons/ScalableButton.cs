@@ -11,6 +11,7 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 {
     [SerializeField] private UnityEvent onClick;
 
+    [SerializeField] private bool interactable = true;
     [SerializeField] private float scaleOnPressed = 0.95f;
     [SerializeField] private float changeColorDuration = 0.4f;
 
@@ -56,8 +57,15 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
     }
 
+    public void SetIsInteractable(bool interactable)
+    {
+        this.interactable = interactable;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!interactable) return;
+
         DOTween.Kill(this);
         transform.DOScale(Vector3.one * scaleOnPressed, 0.7f)
             .SetEase(Ease.OutSine)
@@ -68,6 +76,8 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (!interactable) return;
+
         DOTween.Kill(this);
         transform.DOScale(Vector3.one, 0.7f)
             .SetEase(Ease.OutSine)
@@ -83,6 +93,8 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!interactable) return;
+
         onClick?.Invoke();
     }
 }

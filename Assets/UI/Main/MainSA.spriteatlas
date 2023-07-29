@@ -60,6 +60,7 @@ SpriteAtlas:
     - 7050dc35968508e4683dac064422bdc9: 21300000
     - ebfed08544048cc47b84ae54bac9847c: 21300000
     - 91f131d7b9a6e4a4290f86098fcffe6d: 21300000
+    - 80576ed79ce2a7d4f9e6c73aa23f1a24: 21300000
     - 24e60baaaa890794987375c45fca29c9: 21300000
     - 2457f0eacea7ebd46a13dadbbdd5ffd4: 21300000
     - 617e61eac42de3b4e8f497c7f2e6b887: 21300000
@@ -81,6 +82,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7050dc35968508e4683dac064422bdc9, type: 3}
   - {fileID: 21300000, guid: ebfed08544048cc47b84ae54bac9847c, type: 3}
   - {fileID: 21300000, guid: 91f131d7b9a6e4a4290f86098fcffe6d, type: 3}
+  - {fileID: 21300000, guid: 80576ed79ce2a7d4f9e6c73aa23f1a24, type: 3}
   - {fileID: 21300000, guid: 24e60baaaa890794987375c45fca29c9, type: 3}
   - {fileID: 21300000, guid: 2457f0eacea7ebd46a13dadbbdd5ffd4, type: 3}
   - {fileID: 21300000, guid: 617e61eac42de3b4e8f497c7f2e6b887, type: 3}
@@ -101,6 +103,7 @@ SpriteAtlas:
   - PieChart
   - Back
   - Settings
+  - CloseButton
   - SearchIcon
   - Wallet
   - Trash_Full

@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AccountChooseButton : MonoBehaviour
 {
-    [SerializeField] private Image icon; 
+    [SerializeField] private IconView iconView; 
     [SerializeField] private TMPro.TMP_Text nameText;
 
     private void Awake()
@@ -18,8 +17,11 @@ public class AccountChooseButton : MonoBehaviour
         if (account == null) return;
 
         AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(account.Icon);
-        if (accountIcon)
-            icon.sprite = accountIcon.Icon;
+        if (accountIcon != null)
+            iconView.SetIcon(accountIcon.Icon);
+        Color color = AppSettingsData.Instance.AccountsSettings.GetIconColor(account.IconColorIndex);
+        if (color != default)
+            iconView.SetColor(color);
         nameText.text = account.Name;
     }
 }

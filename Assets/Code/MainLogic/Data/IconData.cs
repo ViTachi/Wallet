@@ -1,7 +1,10 @@
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-public class IconData : ScriptableObject
+[Serializable]
+public class IconData
 {
-    [SerializeField] private Sprite icon;
-    public Sprite Icon => icon;
+    [JsonIgnore, SerializeField] private Sprite icon;
+    [JsonIgnore] public Sprite Icon => icon;
 }

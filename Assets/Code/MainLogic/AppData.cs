@@ -39,11 +39,30 @@ public class AppData : Singleton<AppData>
 
     public void Delete()
     {
-        FilesManager.DeleteFile(Path.Combine(savesFolderName, saveName));
+        FilesManager.DeleteFile(Path.Combine(savesFolderName, $"{saveName}.js"));
     }
 
     protected override void Setup()
     {
         
     }
+
+#if UNITY_EDITOR
+    [UnityEditor.CustomEditor(typeof(AppData))]
+    public class AppDataEditor : UnityEditor.Editor
+    {
+        public AppData AppData => target as AppData;
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            if(GUILayout.Button("Delete Save"))
+            {
+                AppData.Delete();
+                Debug.Log("Save deleted");
+            }
+        }
+    }
+#endif
 }

@@ -1,13 +1,32 @@
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Icon/AccountIcon", fileName = "AccountIcon")]
+[Serializable]
 public class AccountIcon : IconData
 {
-    [SerializeField] private AccountIconType accountIconType;
-    public AccountIconType AccountIconType => accountIconType;
+    [JsonProperty, SerializeField] private AccountIconType accountIconType;
+    [JsonIgnore] public AccountIconType AccountIconType => accountIconType;
 }
 
 public enum AccountIconType
 {
-    None, Money, Visa, Bitcoin
+    None,
+    Wallet,
+    Card,
+    Card2,
+    Card3,
+    Card4,
+    Money,
+    MoneyBag,
+    Banknote,
+    Mastercard,
+    Visa,
+    PayPal,
+    V,
+    Apple,
+    Amex,
+    Bitcoin,
+    WebMoney,
+    Io,
 }

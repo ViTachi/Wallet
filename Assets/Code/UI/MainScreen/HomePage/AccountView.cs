@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AccountView : MonoBehaviour
+public class AccountView : MonoBehaviour, ISelectable<AccountView>
 {
     [SerializeField] private Button button;
-    [SerializeField] private Image iconImage;
+    [SerializeField] private IconView iconView;
     [SerializeField] private TMPro.TMP_Text nameText;
     [SerializeField] private TMPro.TMP_Text balanceText;
     [SerializeField] private Image currencyImage;
     [SerializeField] private RectTransform selectorIcon;
+
+    public bool IsSelected => selectorIcon.gameObject.activeSelf;
 
     public event System.Action<AccountView> OnSelected;
 
@@ -22,7 +24,7 @@ public class AccountView : MonoBehaviour
         AppSettingsData appSettings = AppSettingsData.Instance;
         IconData iconData = appSettings.AccountsSettings.GetAccountIcon(account.Icon);
         if(iconData != null)
-            iconImage.sprite = iconData.Icon;
+            iconView.SetIcon(iconData.Icon);
         nameText.text = account.Name;
         Currency currency = appSettings.CurrenciesSettings.GetCurrency(account.Currency);
         if (currency != null)

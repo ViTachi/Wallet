@@ -28,7 +28,6 @@ public class NotePanel : MonoBehaviour, IScreenElement
     private void Cancel()
     {
         OnCancel?.Invoke();
-        inputField.text = "";
         Hide(false);
     }
 
@@ -40,9 +39,16 @@ public class NotePanel : MonoBehaviour, IScreenElement
 
     private void Delete()
     {
-        OnDelete?.Invoke();
-        inputField.text = "";
-        Hide(false);
+        DeletePopup deletePopup = UIScreens.Instance.GetElement<DeletePopup>();
+        deletePopup.Initialize((delete) => {
+            if (delete)
+            {
+                OnDelete?.Invoke();
+                inputField.text = "";
+                Hide(false);
+            }
+        }, "Delete this note?");
+        deletePopup.Show();    
     }
 
     public void SetText(string text)
@@ -53,7 +59,6 @@ public class NotePanel : MonoBehaviour, IScreenElement
     public void SetDeleteButtonActive(bool active)
     {
         deleteButton.gameObject.SetActive(active);
-        cancelButton.gameObject.SetActive(!active);
     }
 
     public void Show(bool immediately = false)

@@ -1,15 +1,19 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Currency", fileName = "Currency")]
-public class Currency : ScriptableObject
+[System.Serializable]
+public class Currency 
 {
-    [SerializeField] private CurrencyType currencyType;
-    [SerializeField] private string currencyName;
-    [SerializeField] private Sprite icon;
-    [SerializeField] private string iconText;
+    [JsonProperty, SerializeField] private CurrencyType currencyType;
+    [JsonProperty, SerializeField] private string currencyName;
+    [JsonProperty, SerializeField] private string currencyFullName;
+    [JsonProperty, SerializeField] private string iconText;
+
+    [JsonIgnore, SerializeField] private Sprite icon;
 
     public CurrencyType CurrencyType => currencyType;
     public string CurrencyName => currencyName;
+    public string CurrencyFullName => currencyFullName;
     public Sprite Icon => icon;
     public string IconText => iconText;
 }
@@ -21,4 +25,11 @@ public enum CurrencyType
     RUB,
     BYR,
     EUR,
+    AFN,
+    ARS,
+    AMD,
+    AUD,
+    BAM,
+    BHD,
+    BRL,
 }

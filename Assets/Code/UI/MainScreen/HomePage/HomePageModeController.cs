@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HomePageModeController : MonoBehaviour
 {
@@ -8,9 +9,14 @@ public class HomePageModeController : MonoBehaviour
     [SerializeField] private ScalableButton transferButton;
     [SerializeField] private ScalableButton selectAccountButton;
 
+    [Space, Header("Action Buttons")]
+  
     [SerializeField] private ScalableButton addButton;
     [SerializeField] private ScalableButton noteButton;
     [SerializeField] private ScalableButton calendarButton;
+
+    [SerializeField] private RectTransform noteButtonSelector;
+    [SerializeField] private RectTransform calendarButtonSelector;
 
 
     public enum Mode { None = 0, Expense = 1, Income = 2, Transfer = 3 }
@@ -32,6 +38,9 @@ public class HomePageModeController : MonoBehaviour
         notePanel = UIScreens.Instance.GetElement<NotePanel>();
         categorySelectPanel = UIScreens.Instance.GetElement<CategorySelectPanel>();
         operationsManager = OperationsManager.Instance;
+
+        noteButtonSelector.gameObject.SetActive(false);
+        calendarButtonSelector.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -82,6 +91,7 @@ public class HomePageModeController : MonoBehaviour
         notePanel.OnDone -= AddNoteToOperation;
         notePanel.OnDelete -= DeleteNote;
         notePanel.OnClose -= OnNoteClose;
+        noteButtonSelector.gameObject.SetActive(true);
     }
 
     private void AddNoteToOperation()

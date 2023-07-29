@@ -3,6 +3,7 @@ Shader "UI/InnerOutline"{
     _Color ("Tint", Color) = (0, 0, 0, 1)
     _OutlineColor ("OutlineColor", Color) = (1, 1, 1, 1)
     _OutlineWidth ("OutlineWidth", Range(0, 15)) = 1
+    [Toggle] _OutlineOnly("OutlineOnly",  Float) = 0
     _MainTex ("Texture", 2D) = "white" {}
   }
 
@@ -34,6 +35,7 @@ Shader "UI/InnerOutline"{
       fixed4 _Color;
       fixed4 _OutlineColor;
       float _OutlineWidth;
+      float _OutlineOnly;
 
       struct appdata{
         float4 vertex : POSITION;
@@ -70,6 +72,7 @@ Shader "UI/InnerOutline"{
       fixed4 frag(v2f i) : SV_TARGET{
       //get regular color
         fixed4 col = tex2D(_MainTex, i.uv);
+
         col *= _Color;
         col *= i.color;
 
@@ -91,7 +94,9 @@ Shader "UI/InnerOutline"{
         }
 
         //apply border
-        col.rgb = lerp( _OutlineColor.rgb, col.rgb, includeAlpha);
+        col.rgb = lerp(_OutlineColor.rgb, col.rgb, includeAlpha);
+        col.rgb = lerp(col.rgb, i.color, _OutlineOnly);
+        col.a = lerp(0, 1,  lerp(1, 0, _OutlineOnly * includeAlpha) * col.a);
         return col;
       }
 
