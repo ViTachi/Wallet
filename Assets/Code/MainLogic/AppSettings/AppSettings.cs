@@ -10,15 +10,18 @@ public class AppSettings : ScriptableObject
     [SerializeField] private AppSettingsData appSettingsData;
     public AppSettingsData AppSettingsData => appSettingsData;
 
+#if UNITY_EDITOR
     public void LoadDataFromJson()
     {
-        JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
-        jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
-        JsonConvert.PopulateObject(appSettingsJson.text, appSettingsData, jsonSerializerSettings);
+        //JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+        //jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+        //JsonConvert.PopulateObject(appSettingsJson.text, appSettingsData, jsonSerializerSettings);
+        RemoteConfigUtils.ApplyRemoteConfig(appSettingsData, appSettingsJson.text);
     }
     
     public void SaveToJson()
     {
-        FilesManager.ConvertStringToTextAsset(JsonConvert.SerializeObject(appSettingsData, Formatting.Indented), "/Data/AppSettings/AppSettings");
+        FilesManager.ConvertStringToTextAsset(JsonConvert.SerializeObject(appSettingsData, Formatting.Indented), "/AppSettings/AppSettings");
     }
+#endif
 }

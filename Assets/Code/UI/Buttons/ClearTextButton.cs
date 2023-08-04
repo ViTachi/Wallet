@@ -41,7 +41,7 @@ public class ClearTextButton : MonoBehaviour
     private void HandleButton()
     {
         bool isTextFieldEmpty = string.IsNullOrEmpty(inputField.text);
-        button.SetIsInteractable(!isTextFieldEmpty);
+        button.interactable = !isTextFieldEmpty;
         canvasGroup.blocksRaycasts = !isTextFieldEmpty;
 
         SetIsVisible(!isTextFieldEmpty && (isSelected || alwaysShow));

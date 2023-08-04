@@ -41,6 +41,7 @@ public class SelectAccountPanel : MonoBehaviour, IScreenElement
         {
             account.Key.SetIsSelected(SaveData.Instance.AccountsData.SelectedAccountId == account.Value.Id);
         }
+        Hide(false);
     }
 
     private void OnCreateAccountClicked()

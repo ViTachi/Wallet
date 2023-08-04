@@ -1,12 +1,11 @@
-using Newtonsoft.Json;
 using System;
 using UnityEngine;
 
 [Serializable]
 public class AccountIcon : IconData
 {
-    [JsonProperty, SerializeField] private AccountIconType accountIconType;
-    [JsonIgnore] public AccountIconType AccountIconType => accountIconType;
+    [SerializeField] private AccountIconType accountIconType;
+    public AccountIconType AccountIconType => accountIconType;
 }
 
 public enum AccountIconType

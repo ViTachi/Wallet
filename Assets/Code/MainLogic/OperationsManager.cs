@@ -22,6 +22,11 @@ public class OperationsManager : Singleton<OperationsManager>
         currentOperationData.SetAccountId(account.Id);
     }
 
+    public void SetCategoryType(CategoryType categoryType)
+    {
+        currentOperationData.SetCategoryType(categoryType);
+    }
+
     public void SetNote(string note)
     {
         currentOperationData.SetNote(note);
@@ -54,6 +59,9 @@ public class OperationsManager : Singleton<OperationsManager>
         {
             currentOperationData.SetDate(DateTime.UtcNow);
         }
+        Account account = SaveData.Instance.AccountsData.GetAccount(currentOperationData.AccountId);
+        if (account != null)
+            account.Expense(currentOperationData.Value);
         SaveData.Instance.OperationsData.AddOperation(currentOperationData);
         SaveData.Save();
         currentOperationData = new ExpenseOperationData();

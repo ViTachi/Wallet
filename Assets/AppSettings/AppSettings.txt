@@ -1,26 +1,191 @@
 {
   "mainSettings": {
-    "themeIdByDefault": "s1"
+    "themeIdByDefault": "314"
   },
-  "currenciesSettings": {},
+  "currenciesSettings": {
+    "defaultSelectedCurrency": "BYR",
+    "currencies": [
+      {
+        "currencyType": "USD",
+        "currencyName": "USD",
+        "currencyFullName": "Dollar",
+        "iconText": "$"
+      },
+      {
+        "currencyType": "BYR",
+        "currencyName": "BYR",
+        "currencyFullName": "Belarusian ruble",
+        "iconText": "b.r."
+      },
+      {
+        "currencyType": "EUR",
+        "currencyName": "EUR",
+        "currencyFullName": "Euro",
+        "iconText": "€"
+      },
+      {
+        "currencyType": "RUB",
+        "currencyName": "RUB",
+        "currencyFullName": "Rossian rubble",
+        "iconText": "rub"
+      },
+      {
+        "currencyType": "AFN",
+        "currencyName": "AFN",
+        "currencyFullName": "Afghan Afghani",
+        "iconText": "$"
+      },
+      {
+        "currencyType": "ARS",
+        "currencyName": "ARS",
+        "currencyFullName": "Argentine peso",
+        "iconText": "peso"
+      },
+      {
+        "currencyType": "AMD",
+        "currencyName": "AMD",
+        "currencyFullName": "Armenian dram",
+        "iconText": "dram"
+      },
+      {
+        "currencyType": "AUD",
+        "currencyName": "AUD",
+        "currencyFullName": "Australian dollar",
+        "iconText": "$"
+      },
+      {
+        "currencyType": "BAM",
+        "currencyName": "BAM",
+        "currencyFullName": "Bosnia and Herzegovina convertible mark",
+        "iconText": "mark"
+      },
+      {
+        "currencyType": "BHD",
+        "currencyName": "BHD",
+        "currencyFullName": "Bahraini dinar",
+        "iconText": "dinar"
+      },
+      {
+        "currencyType": "BRL",
+        "currencyName": "BRL",
+        "currencyFullName": "Brazilian real",
+        "iconText": "real"
+      }
+    ]
+  },
   "accountsSettings": {
     "accounts": [
       {
         "id": "default",
-        "name": "account default",
-        "icon": "Bitcoin",
-        "currency": "RUB",
-        "balance": 100.0
-      },
-      {
-        "id": "ac2",
-        "name": "account 2",
-        "icon": "Visa",
-        "currency": "EUR",
+        "name": "Wallet",
+        "icon": "Wallet",
+        "iconColorType": "ModerateBlue",
+        "currency": "USD",
         "balance": 0.0
       }
     ],
-    "selectedAccountIdByDefault": "default"
+    "selectedAccountIdByDefault": "default",
+    "iconColors": [
+      {
+        "iconColorType": "ModerateBlue",
+        "color": "5856D6FF"
+      },
+      {
+        "iconColorType": "Red",
+        "color": "FF3B30FF"
+      },
+      {
+        "iconColorType": "Orange",
+        "color": "FF9500FF"
+      },
+      {
+        "iconColorType": "Yellow",
+        "color": "FFCC00FF"
+      },
+      {
+        "iconColorType": "SoftBlue",
+        "color": "5AC8FAFF"
+      },
+      {
+        "iconColorType": "Blue",
+        "color": "007AFFFF"
+      },
+      {
+        "iconColorType": "Green",
+        "color": "34C759FF"
+      },
+      {
+        "iconColorType": "Violet",
+        "color": "AF52DEFF"
+      },
+      {
+        "iconColorType": "VividRed",
+        "color": "FF2D55FF"
+      },
+      {
+        "iconColorType": "Black",
+        "color": "000000FF"
+      }
+    ]
+  },
+  "categoriesSettings": {
+    "categories": [
+      {
+        "categoryType": 1,
+        "categoryName": "Pets",
+        "categoryColor": "5856D60D"
+      },
+      {
+        "categoryType": 2,
+        "categoryName": "Entertainment",
+        "categoryColor": "FF95000D"
+      },
+      {
+        "categoryType": 3,
+        "categoryName": "Food",
+        "categoryColor": "AF52DE0D"
+      },
+      {
+        "categoryType": 4,
+        "categoryName": "Health",
+        "categoryColor": "34C7590D"
+      },
+      {
+        "categoryType": 5,
+        "categoryName": "Hygiene",
+        "categoryColor": "32BEFE0D"
+      },
+      {
+        "categoryType": 6,
+        "categoryName": "Clothes",
+        "categoryColor": "FFC7000D"
+      },
+      {
+        "categoryType": 7,
+        "categoryName": "Sport",
+        "categoryColor": "8E8E930D"
+      },
+      {
+        "categoryType": 8,
+        "categoryName": "Gifts",
+        "categoryColor": "FF3B300D"
+      },
+      {
+        "categoryType": 9,
+        "categoryName": "Home",
+        "categoryColor": "0040DD0D"
+      },
+      {
+        "categoryType": 10,
+        "categoryName": "Bills",
+        "categoryColor": "0000000D"
+      },
+      {
+        "categoryType": 11,
+        "categoryName": "Transport",
+        "categoryColor": "FF2D550D"
+      }
+    ]
   },
   "incomeSourceSettings": {
     "incomeSources": [

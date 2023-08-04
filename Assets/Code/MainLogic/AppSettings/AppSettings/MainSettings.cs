@@ -5,4 +5,5 @@ using UnityEngine;
 public class MainSettings
 {
     [JsonProperty, SerializeField] private string themeIdByDefault;
+    [JsonIgnore, SerializeField] private int i = 3;
 }

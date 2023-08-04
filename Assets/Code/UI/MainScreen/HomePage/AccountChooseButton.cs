@@ -16,12 +16,12 @@ public class AccountChooseButton : MonoBehaviour
         Account account = SaveData.Instance.AccountsData.SelectedAccount;
         if (account == null) return;
 
-        AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(account.Icon);
+        AccountIcon accountIcon = AppSettingsData.Instance.GetAccountIcon(account.Icon);
         if (accountIcon != null)
             iconView.SetIcon(accountIcon.Icon);
-        Color color = AppSettingsData.Instance.AccountsSettings.GetIconColor(account.IconColorIndex);
-        if (color != default)
-            iconView.SetColor(color);
+        IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(account.IconColorType);
+        if (iconColor != null)
+            iconView.SetColor(iconColor.Color);
         nameText.text = account.Name;
     }
 }

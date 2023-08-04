@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,7 @@ public class ColorPickView : MonoBehaviour, ISelectable<ColorPickView>
 {
     [SerializeField] private ScalableButton button;
     [SerializeField] private RectTransform selector;
-    [SerializeField] private Image colorCircle;
-    [SerializeField] private Image selectorIcon;
+    [SerializeField] private List<Image> images;
 
     public bool IsSelected => selector.gameObject.activeSelf;
 
@@ -20,8 +20,10 @@ public class ColorPickView : MonoBehaviour, ISelectable<ColorPickView>
 
     public void Initialize(Color color)
     {
-        colorCircle.color = color;
-        selectorIcon.color = color;
+        foreach (var image in images)
+        {
+            image.color = color;
+        }
     }
 
     public void SetIsSelected(bool selected)

@@ -41,16 +41,19 @@ public class SelectCurrencyPanel : MonoBehaviour
 
     private void OnChooseCurrency(CurrencyView choosedView)
     {
+        if (views.ContainsKey(choosedView))
+            SetSelectedCurrency(views[choosedView]); 
+    }
+
+    public void SetSelectedCurrency(CurrencyType currencyType)
+    {
         foreach (var view in views)
         {
-            view.Key.SetIsSelected(view.Key == choosedView);
-            if (view.Key == choosedView)
-            {
-                OnCurrencySelected?.Invoke(view.Value);
-                selectedCurrency = view.Value;
-                currentCurrencyView.Initialize(view.Value);
-            }               
-        }    
+            view.Key.SetIsSelected(view.Value == currencyType);
+        }
+        currentCurrencyView.Initialize(currencyType);
+        OnCurrencySelected?.Invoke(currencyType);
+        selectedCurrency = currencyType;
     }
 
     private void SetupCurrencies()

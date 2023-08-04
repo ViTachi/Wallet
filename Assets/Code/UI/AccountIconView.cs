@@ -16,15 +16,18 @@ public class AccountIconView : MonoBehaviour, ISelectable<AccountIconView>
         button.OnClick.AddListener(() => OnSelected?.Invoke(this));
     }
 
-    public void Initialize(AccountIconType accountIconType, int iconColorIndex = -1)
+    public void Initialize(AccountIconType accountIconType, IconColorType iconColorType = IconColorType.None)
     {
-        AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(accountIconType);
+        AccountIcon accountIcon = AppSettingsData.Instance.GetAccountIcon(accountIconType);
         if (accountIcon != null)
             iconView.SetIcon(accountIcon.Icon);
-        if(iconColorIndex != -1)
+        if (iconColorType != IconColorType.None)
         {
-            Color color = AppSettingsData.Instance.AccountsSettings.GetIconColor(iconColorIndex);
-            iconView.SetColor(color);
+            IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(iconColorType);
+            if (iconColor != null)
+            {
+                iconView.SetColor(iconColor.Color);
+            }
         }
     }
 

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,11 +6,10 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+public class ScalableButton : Selectable, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [SerializeField] private UnityEvent onClick;
 
-    [SerializeField] private bool interactable = true;
     [SerializeField] private float scaleOnPressed = 0.95f;
     [SerializeField] private float changeColorDuration = 0.4f;
 
@@ -44,7 +42,7 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private State currentState = State.None;
     public State CurrentState => currentState;
 
-    public void SetState(State state)
+    public void SetState(State state, bool immediately = false)
     {
         if(currentState != state)
         {
@@ -52,19 +50,16 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
             foreach (var stateSetting in states.Where(x => x.state == state))
             {
-                stateSetting.SetupColor(this, changeColorDuration);
+                stateSetting.SetupColor(this, immediately ? 0f : changeColorDuration);
             }
         }
     }
 
-    public void SetIsInteractable(bool interactable)
+    public override void OnPointerDown(PointerEventData eventData)
     {
-        this.interactable = interactable;
-    }
+        base.OnPointerDown(eventData);
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (!interactable) return;
+        if (!IsInteractable()) return;
 
         DOTween.Kill(this);
         transform.DOScale(Vector3.one * scaleOnPressed, 0.7f)
@@ -74,9 +69,11 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             .SetUpdate(true);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public override void OnPointerUp(PointerEventData eventData)
     {
-        if (!interactable) return;
+        base.OnPointerUp(eventData);
+
+        if (!IsInteractable()) return;
 
         DOTween.Kill(this);
         transform.DOScale(Vector3.one, 0.7f)
@@ -86,14 +83,16 @@ public class ScalableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             .SetUpdate(true);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+
         DOTween.Kill(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!interactable) return;
+        if (!IsInteractable()) return;
 
         onClick?.Invoke();
     }

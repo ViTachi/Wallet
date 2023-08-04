@@ -176,6 +176,7 @@ MonoBehaviour:
   nameText: {fileID: 8115179073796259705}
   balanceText: {fileID: 4551555572183468545}
   currencyImage: {fileID: 1768303944410202249}
+  iconBackgroundImage: {fileID: 1559297886251716358}
   selectorIcon: {fileID: 6622605120313072344}
 --- !u!114 &7495874523616186425
 MonoBehaviour:

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Categories
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: d7d2e95da10867c429f9e5af778c7fd2, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 64ef718137e087345be79aa2d50f58b5, type: 3}
+  - {fileID: 21300000, guid: 179f76525809b714f82864fc469c222b, type: 3}
+  - {fileID: 21300000, guid: 2c7cdac202c201f4f87297dd6e327f53, type: 3}
+  - {fileID: 21300000, guid: ebf21295880a2734fa3478e305facfe2, type: 3}
+  - {fileID: 21300000, guid: 7803f6665020e9145b4ff7109a73d334, type: 3}
+  - {fileID: 21300000, guid: 21ad01a77b81e5641a7e85f462b8c6e9, type: 3}
+  - {fileID: 21300000, guid: e51540b746cbf4a46808c2baa74e454f, type: 3}
+  - {fileID: 21300000, guid: 17bff67ae3a49e249ad1251ccee04c0a, type: 3}
+  - {fileID: 21300000, guid: f144f57b31d32754bac089ffa6532f20, type: 3}
+  - {fileID: 21300000, guid: df6866abe74842144b91042807af91e9, type: 3}
+  - {fileID: 21300000, guid: 2629218c2c37de64cb0ba814e80aaa14, type: 3}
+  - {fileID: 21300000, guid: 53cebb8e411443349b557778d198c6e2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - FirstAid
+  - Gift
+  - ShoppingCartSimple
+  - Train
+  - TShirt
+  - Receipt
+  - HouseLine
+  - Bathtub
+  - PlusCircle
+  - Barbell
+  - Popcorn
+  - PawPrint
+  m_RenderDataMap: {}
+  m_Tag: Categories
+  m_IsVariant: 0

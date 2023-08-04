@@ -8,6 +8,7 @@ public class AccountView : MonoBehaviour, ISelectable<AccountView>
     [SerializeField] private TMPro.TMP_Text nameText;
     [SerializeField] private TMPro.TMP_Text balanceText;
     [SerializeField] private Image currencyImage;
+    [SerializeField] private Image iconBackgroundImage;
     [SerializeField] private RectTransform selectorIcon;
 
     public bool IsSelected => selectorIcon.gameObject.activeSelf;
@@ -22,20 +23,23 @@ public class AccountView : MonoBehaviour, ISelectable<AccountView>
     public void Initialize (Account account)
     {
         AppSettingsData appSettings = AppSettingsData.Instance;
-        IconData iconData = appSettings.AccountsSettings.GetAccountIcon(account.Icon);
+        IconData iconData = appSettings.GetAccountIcon(account.Icon);
         if(iconData != null)
             iconView.SetIcon(iconData.Icon);
         nameText.text = account.Name;
         Currency currency = appSettings.CurrenciesSettings.GetCurrency(account.Currency);
         if (currency != null)
             SetAmount(currency, account.Balance);
+        IconColor iconColor = appSettings.AccountsSettings.GetIconColor(account.IconColorType);
+        if (iconColor != null)
+            iconBackgroundImage.color = iconColor.Color;
     }
 
     public void SetAmount(Currency currency, float balance)
     {
-        currencyImage.gameObject.SetActive(currency.Icon != null);
-        if (currency.Icon != null)
-            currencyImage.sprite = currency.Icon;
+        currencyImage.gameObject.SetActive(false);// currency.Icon != null);
+        //if (currency.Icon != null)
+        //    currencyImage.sprite = currency.Icon;
         balanceText.text = $"{balance} {(!string.IsNullOrEmpty(currency.IconText) ? currency.IconText: "")}"; 
     }
 

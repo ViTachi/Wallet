@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 [Serializable]
 public class CurrenciesSettings
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     [JsonProperty, SerializeField] private CurrencyType defaultSelectedCurrency;
     [JsonProperty, SerializeField] private List<Currency> currencies;
 

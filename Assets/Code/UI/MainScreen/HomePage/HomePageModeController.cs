@@ -37,6 +37,7 @@ public class HomePageModeController : MonoBehaviour
 
         notePanel = UIScreens.Instance.GetElement<NotePanel>();
         categorySelectPanel = UIScreens.Instance.GetElement<CategorySelectPanel>();
+        categorySelectPanel.OnChooseCategory += OnChooseCategory;
         operationsManager = OperationsManager.Instance;
 
         noteButtonSelector.gameObject.SetActive(false);
@@ -45,7 +46,8 @@ public class HomePageModeController : MonoBehaviour
 
     private void Start()
     {
-        addButton.SetState(ScalableButton.State.Disabled);
+        addButton.SetState(ScalableButton.State.Disabled, true);
+        addButton.interactable = false;
         valueInputController.ResetContoller();
         StartCoroutine(SetupLayout());
     }
@@ -91,7 +93,7 @@ public class HomePageModeController : MonoBehaviour
         notePanel.OnDone -= AddNoteToOperation;
         notePanel.OnDelete -= DeleteNote;
         notePanel.OnClose -= OnNoteClose;
-        noteButtonSelector.gameObject.SetActive(true);
+        noteButtonSelector.gameObject.SetActive(!operationsManager.IsOperationNoteEmpty);
     }
 
     private void AddNoteToOperation()
@@ -126,6 +128,14 @@ public class HomePageModeController : MonoBehaviour
 
     }
 
+    private void OnChooseCategory(CategoryType categoryType)
+    {
+        operationsManager.SetCurrentAccount(SaveData.Instance.AccountsData.SelectedAccount);
+        operationsManager.SetCategoryType(categoryType);
+        SaveOperation();
+        valueInputController.ResetContoller();
+    }
+
     private void SaveOperation()
     {
         operationsManager.SaveOperation();
@@ -137,11 +147,13 @@ public class HomePageModeController : MonoBehaviour
         {
             transferButton.SetState(ScalableButton.State.Disabled);
             addButton.SetState(ScalableButton.State.Disabled);
+            addButton.interactable = false;
         }
         else
         {
             transferButton.SetState(ScalableButton.State.Active);
             addButton.SetState(ScalableButton.State.Active);
+            addButton.interactable = true;
         }
     }
 

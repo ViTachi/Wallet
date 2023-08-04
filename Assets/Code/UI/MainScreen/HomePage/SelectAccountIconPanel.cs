@@ -2,78 +2,85 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SelectAccountIconPanel : MonoBehaviour
 {
     [SerializeField] private RectTransform panelRT;
     [SerializeField] private ScalableButton closeButton;
+    [SerializeField] private ScalableButton okButton;
     [SerializeField] private CanvasGroup headerGroup;
     [SerializeField] private IconView headerIconView;
 
     [SerializeField] private AccountIconView iconViewPrefab;
     [SerializeField] private RectTransform iconsParent;
     [SerializeField] private ScrollFadeHandler scrollFadeHandler;
-    [SerializeField] private List<RectTransform> emptyViews;
 
     [SerializeField] private int colorChooseViewCount = 5;
     [SerializeField] private ScalableButton chooseColorButton;
+    [SerializeField] private ScalableButton chooseColorBackButton;
     [SerializeField] private ColorPickView colorPickViewPrefab;
+    [SerializeField] private ColorPickView colorPickViewPrefab2;
     [SerializeField] private RectTransform colorPickViewsParent;
+    [SerializeField] private RectTransform colorPickViewsParent2;
+
+    [SerializeField] private RectTransform chooseIconContent;
+    [SerializeField] private RectTransform chooseColorContent;
+    [SerializeField] private CanvasGroupFader chooseIconHeaderFader;
+    [SerializeField] private CanvasGroupFader chooseColorHeaderFader;
 
     public event Action OnClose;
     public event Action<AccountIconType> OnIconSelected;
-    public event Action<int> OnColorSelected;
+    public event Action<IconColorType> OnColorSelected;
 
     private Dictionary<AccountIconView, AccountIconType> iconViews = new Dictionary<AccountIconView, AccountIconType>();
     private AccountIconType selectedIcon = AccountIconType.None;
 
-    private Dictionary<ColorPickView, int> colorViews = new Dictionary<ColorPickView, int>();
-    private int selectedColorIndex = 0;
+    private Dictionary<ColorPickView, IconColorType> colorViews = new Dictionary<ColorPickView, IconColorType>();
+    private IconColorType selectedColorType = IconColorType.None;
 
     public AccountIconType SelectedIcon => selectedIcon;
-    public int SelectedColorIndex => selectedColorIndex;
+    public IconColorType SelectedColorType => selectedColorType;
 
     private void Awake()
     {
         closeButton.OnClick.AddListener(() => Hide(false));
+        okButton.OnClick.AddListener(OnOkClocked);
+        chooseColorButton.OnClick.AddListener(() => SetChooseColorState());
+        chooseColorBackButton.OnClick.AddListener(() => SetChooseIconState());
     }
 
     private void OnChooseIcon(AccountIconView choosedView)
     {
+        if(iconViews.ContainsKey(choosedView))
+            SetSelectedIcon(iconViews[choosedView]);
+    }
+
+    public void SetSelectedIcon(AccountIconType accountIconType)
+    {
         foreach (var view in iconViews)
         {
-            view.Key.SetIsSelected(view.Key == choosedView);
-            if (view.Key == choosedView)
-            {
-                OnIconSelected?.Invoke(view.Value);
-                selectedIcon = view.Value;
-            }
+            view.Key.SetIsSelected(view.Value == accountIconType);
         }
-        AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(iconViews[choosedView]);
+
+        selectedIcon = accountIconType;
+
+        AccountIcon accountIcon = AppSettingsData.Instance.GetAccountIcon(accountIconType);
         if (accountIcon != null)
-            headerIconView.SetIcon(accountIcon.Icon);
+            headerIconView.SetIcon(accountIcon.Icon);    
     }
 
     private void SetupIcons()
     {
-        ClearCurrencies();
+        ClearIcons();
 
         iconViewPrefab.gameObject.SetActive(false);
-        foreach (var icon in AppSettingsData.Instance.AccountsSettings.AccountIcons)
+        foreach (var icon in AppSettingsData.Instance.AccountIcons)
         {
             AccountIconView view = Instantiate(iconViewPrefab, iconsParent);
             view.gameObject.SetActive(true);
-            view.SetIsSelected(icon.AccountIconType == AppSettingsData.Instance.AccountsSettings.AccountIcons[0].AccountIconType);
             view.Initialize(icon.AccountIconType);
             view.OnSelected += OnChooseIcon;
             iconViews.Add(view, icon.AccountIconType);
-        }
-
-        for(int i = 0; i < emptyViews.Count; i++)
-        {
-            emptyViews[i].SetSiblingIndex(iconViews.Count + emptyViews.Count);
-            emptyViews[i].gameObject.SetActive(iconViews.Count + i <= 4);
         }
 
         ResetContentPosition();
@@ -85,7 +92,7 @@ public class SelectAccountIconPanel : MonoBehaviour
         scrollFadeHandler.RecalculateFadersSize(Vector2.zero);
     }
 
-    private void ClearCurrencies()
+    private void ClearIcons()
     {
         foreach (var view in iconViews)
         {
@@ -96,23 +103,27 @@ public class SelectAccountIconPanel : MonoBehaviour
 
     private void OnChooseColor(ColorPickView choosedView)
     {
+        if (colorViews.ContainsKey(choosedView))
+            SetSelectedColor(colorViews[choosedView]);
+    }
+
+    public void SetSelectedColor(IconColorType colorType)
+    {
         foreach (var view in colorViews)
         {
-            view.Key.SetIsSelected(view.Key == choosedView);
-            if (view.Key == choosedView)
-            {
-                OnColorSelected?.Invoke(view.Value);
-                selectedColorIndex = view.Value;
-            }
+            view.Key.SetIsSelected(view.Value == colorType);
         }
-        Color color = AppSettingsData.Instance.AccountsSettings.GetIconColor(selectedColorIndex);
-        if (color != default)
+
+        selectedColorType = colorType;
+
+        IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(colorType);
+        if (iconColor != null)
         {
             foreach (var view in iconViews)
             {
-                view.Key.SetColor(color);
+                view.Key.SetColor(iconColor.Color);
             }
-            headerIconView.SetColor(color);
+            headerIconView.SetColor(iconColor.Color);
         }
     }
 
@@ -128,10 +139,18 @@ public class SelectAccountIconPanel : MonoBehaviour
 
             ColorPickView view = Instantiate(colorPickViewPrefab, colorPickViewsParent);
             view.gameObject.SetActive(true);
-            view.SetIsSelected(i == 0);
-            view.Initialize(colors[i]);
+            view.Initialize(colors[i].Color);
             view.OnSelected += OnChooseColor;
-            colorViews.Add(view, i);
+            colorViews.Add(view, colors[i].IconColorType);
+        }
+        colorPickViewPrefab2.gameObject.SetActive(false);
+        for (int i = 0; i < colors.Count; i++)
+        {
+            ColorPickView view = Instantiate(colorPickViewPrefab2, colorPickViewsParent2);
+            view.gameObject.SetActive(true);
+            view.Initialize(colors[i].Color);
+            view.OnSelected += OnChooseColor;
+            colorViews.Add(view, colors[i].IconColorType);
         }
     }
 
@@ -143,6 +162,32 @@ public class SelectAccountIconPanel : MonoBehaviour
         }
         colorViews.Clear();
     }
+
+    private void OnOkClocked()
+    {
+        if(selectedIcon != AccountIconType.None) 
+            OnIconSelected?.Invoke(selectedIcon);
+        if (selectedColorType != IconColorType.None)
+            OnColorSelected?.Invoke(selectedColorType);
+        Hide(false);
+    }
+
+    private void SetChooseIconState(bool immediately = false)
+    {
+        chooseIconContent.gameObject.SetActive(true);
+        chooseColorContent.gameObject.SetActive(false);
+        chooseIconHeaderFader.Show(immediately, 0.15f);
+        chooseColorHeaderFader.Hide(immediately);
+    }
+
+    private void SetChooseColorState(bool immediately = false)
+    {
+        chooseIconContent.gameObject.SetActive(false);
+        chooseColorContent.gameObject.SetActive(true);
+        chooseIconHeaderFader.Hide(immediately);
+        chooseColorHeaderFader.Show(immediately, 0.15f);
+    }
+
 
     public void Show(bool immediately = false)
     {
@@ -164,6 +209,7 @@ public class SelectAccountIconPanel : MonoBehaviour
 
         SetupIcons();
         SetupColors();
+        SetChooseIconState(true);
     }
 
     public void Hide(bool immediately = false)

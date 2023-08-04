@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class BottomPanel : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Button emptyAreaButton;
     [SerializeField] private RectTransform panelRT;
     [SerializeField] private CanvasGroup fadeGroup;
@@ -19,6 +20,7 @@ public class BottomPanel : MonoBehaviour
     {
         DOTween.Kill(this);
         gameObject.SetActive(true);
+        canvasGroup.interactable = true;
         if (immediately)
         {
             panelRT.anchoredPosition = new Vector2(panelRT.anchoredPosition.x, 0);
@@ -43,6 +45,8 @@ public class BottomPanel : MonoBehaviour
     {
         OnClose?.Invoke();
         DOTween.Kill(this);
+        canvasGroup.interactable = false;
+
         if (immediately)
         {
             gameObject.SetActive(false);

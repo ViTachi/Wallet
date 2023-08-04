@@ -11,6 +11,7 @@ public class ValueInputController : MonoBehaviour
     [SerializeField] private Color disableFractionalColor = Color.white;
     [SerializeField] private TMPro.TMP_Text wholeValueText;
     [SerializeField] private TMPro.TMP_Text fractionalValueText;
+    [SerializeField] private TMPro.TMP_Text currencyIconText;
     [SerializeField] private List<NumberInputButton> numberButtons;
     [SerializeField] private Button dotButton;
     [SerializeField] private Button backspaceButton;
@@ -35,6 +36,20 @@ public class ValueInputController : MonoBehaviour
         }
 
         ResetContoller();
+
+        OnSelectedAccountChanged();
+        SaveData.Instance.AccountsData.OnSelectAccount += OnSelectedAccountChanged;
+    }
+
+    private void OnSelectedAccountChanged()
+    {
+        Account account = SaveData.Instance.AccountsData.SelectedAccount;
+        if(account != null)
+        {
+            Currency currency = AppSettingsData.Instance.CurrenciesSettings.GetCurrency(account.Currency);
+            if (currency != null)
+                currencyIconText.text = currency.IconText;
+        }     
     }
 
     public void ResetContoller()
@@ -52,6 +67,7 @@ public class ValueInputController : MonoBehaviour
         fractionalValue = 0;
         fractionalNumbersCount = 0;
         SetFractionalActive(false);
+        SetWholeActive(false);
 
         OnChangeValue?.Invoke(CurrentVulue);
     }
@@ -85,6 +101,8 @@ public class ValueInputController : MonoBehaviour
             }
         }
 
+        SetWholeActive(wholeValue != 0 || isFractionalInput);
+
         OnChangeValue?.Invoke(CurrentVulue);
     }
 
@@ -100,7 +118,7 @@ public class ValueInputController : MonoBehaviour
             if (fractionalNumbersCount == 0)
             {
                 SetFractionalActive(false);
-                OnBackspaceButtonClicked();
+                //OnBackspaceButtonClicked();
             }
             string text = "";
             if (fractionalNumbersCount > 1)
@@ -129,6 +147,8 @@ public class ValueInputController : MonoBehaviour
             if (parseComplete) wholeValue = resault;
         }
 
+        SetWholeActive(wholeValue != 0 || isFractionalInput);
+
         OnChangeValue?.Invoke(CurrentVulue);
     }
 
@@ -136,6 +156,13 @@ public class ValueInputController : MonoBehaviour
     {
         isFractionalInput = active;
         fractionalValueText.color = active ? activeFractionalColor : disableFractionalColor;
+        SetWholeActive(true);
+    }
+
+    private void SetWholeActive(bool active)
+    {
+        wholeValueText.color = active ? activeFractionalColor : disableFractionalColor;
+        currencyIconText.color = active ? activeFractionalColor : disableFractionalColor;
     }
 
     private float CalculateValue()

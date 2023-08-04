@@ -24,7 +24,7 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
 
     private AccountIconType selectedIcon = AccountIconType.None;
     private CurrencyType selectedCurrency = CurrencyType.None;
-    private int selectedColorIndex = 0;
+    private IconColorType selectedColorType = IconColorType.None;
 
     private void Awake()
     {
@@ -65,17 +65,17 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     private void SetSelectedIcon(AccountIconType iconType)
     {
         selectedIcon = iconType;
-        AccountIcon icon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(iconType);
+        AccountIcon icon = AppSettingsData.Instance.GetAccountIcon(iconType);
         if(icon != null)
             selectedIconView.SetIcon(icon.Icon);
     }
 
-    private void SetSelectedColor(int colorIndex)
+    private void SetSelectedColor(IconColorType colorType)
     {
-        selectedColorIndex = colorIndex;
-        Color color = AppSettingsData.Instance.AccountsSettings.GetIconColor(colorIndex);
-        if (color != default)
-            selectedIconView.SetColor(color);
+        selectedColorType = colorType;
+        IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(colorType);
+        if (iconColor != null)
+            selectedIconView.SetColor(iconColor.Color);
     }
 
     private void OnOkClicked()
@@ -84,9 +84,13 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
 
         bool balanceValid = float.TryParse(balanceField.text, out float balance);
         Account account = new Account(accountNameField.text, accountNameField.text, selectedIcon,
-            selectedColorIndex, selectedCurrency, balanceValid ? balance : 0f);
+            selectedColorType, selectedCurrency, balanceValid ? balance : 0f);
 
         SaveData.Instance.AccountsData.AddAccount(account);
+
+        MessagePopup messagePopup = UIScreens.Instance.GetElement<MessagePopup>();
+        messagePopup.Initialize("Account Created");
+        messagePopup.Show();
 
         Hide(false);
     }
@@ -99,12 +103,15 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     private void OnChooseCurrency()
     {
         selectCurrencyPanel.Show(false);
+        selectCurrencyPanel.SetSelectedCurrency(selectedCurrency);
         HideContent();   
     }
 
     private void OnChooseIcon()
     {
         selectAccountIconPanel.Show(false);
+        selectAccountIconPanel.SetSelectedIcon(selectedIcon);
+        selectAccountIconPanel.SetSelectedColor(selectedColorType);
         HideContent();
     }
 
@@ -116,9 +123,13 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
 
         ShowContent(true);
         SetSelectedCurrency(AppSettingsData.Instance.CurrenciesSettings.DefaultSelectedCurrency);
-        if(AppSettingsData.Instance.AccountsSettings.AccountIcons.Count > 0)
-            SetSelectedIcon(AppSettingsData.Instance.AccountsSettings.AccountIcons[0].AccountIconType);
-        SetSelectedColor(0);
+        if(AppSettingsData.Instance.AccountIcons.Count > 0)
+            SetSelectedIcon(AppSettingsData.Instance.AccountIcons[0].AccountIconType);
+        if (AppSettingsData.Instance.AccountsSettings.IconColors.Count > 0)
+            SetSelectedColor(AppSettingsData.Instance.AccountsSettings.IconColors[0].IconColorType);
+
+        accountNameField.text = string.Empty;
+        balanceField.text = string.Empty;
     }
 
     public void Hide(bool immediately = false)
