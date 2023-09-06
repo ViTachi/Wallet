@@ -11,6 +11,7 @@ public class Category
     [JsonIgnore] public CategoryType CategoryType => categoryType;
     [JsonIgnore] public string CategoryName => categoryName;
     [JsonIgnore] public Color CategoryColor => categoryColor;
+    [JsonIgnore] public const string TitleProperty = nameof(categoryType);
 }
 
 public enum CategoryType

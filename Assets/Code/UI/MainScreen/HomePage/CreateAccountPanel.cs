@@ -65,7 +65,7 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     private void SetSelectedIcon(AccountIconType iconType)
     {
         selectedIcon = iconType;
-        AccountIcon icon = AppSettingsData.Instance.GetAccountIcon(iconType);
+        AccountIcon icon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(iconType);
         if(icon != null)
             selectedIconView.SetIcon(icon.Icon);
     }
@@ -123,8 +123,8 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
 
         ShowContent(true);
         SetSelectedCurrency(AppSettingsData.Instance.CurrenciesSettings.DefaultSelectedCurrency);
-        if(AppSettingsData.Instance.AccountIcons.Count > 0)
-            SetSelectedIcon(AppSettingsData.Instance.AccountIcons[0].AccountIconType);
+        if(AppSettingsData.Instance.AccountsSettings.AccountIcons.Count > 0)
+            SetSelectedIcon(AppSettingsData.Instance.AccountsSettings.AccountIcons[0].AccountIconType);
         if (AppSettingsData.Instance.AccountsSettings.IconColors.Count > 0)
             SetSelectedColor(AppSettingsData.Instance.AccountsSettings.IconColors[0].IconColorType);
 

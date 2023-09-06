@@ -9,7 +9,8 @@ public class CurrenciesSettings
 {
     [JsonConverter(typeof(StringEnumConverter))]
     [JsonProperty, SerializeField] private CurrencyType defaultSelectedCurrency;
-    [JsonProperty, SerializeField] private List<Currency> currencies;
+    [JsonProperty, SerializeField, ArrayElements(Currency.TitleProperty)]
+    private List<Currency> currencies;
 
     [JsonIgnore] public CurrencyType DefaultSelectedCurrency => defaultSelectedCurrency;
     [JsonIgnore] public IReadOnlyList<Currency> Currencies => currencies;

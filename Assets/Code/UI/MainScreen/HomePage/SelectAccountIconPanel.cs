@@ -64,7 +64,7 @@ public class SelectAccountIconPanel : MonoBehaviour
 
         selectedIcon = accountIconType;
 
-        AccountIcon accountIcon = AppSettingsData.Instance.GetAccountIcon(accountIconType);
+        AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(accountIconType);
         if (accountIcon != null)
             headerIconView.SetIcon(accountIcon.Icon);    
     }
@@ -74,7 +74,7 @@ public class SelectAccountIconPanel : MonoBehaviour
         ClearIcons();
 
         iconViewPrefab.gameObject.SetActive(false);
-        foreach (var icon in AppSettingsData.Instance.AccountIcons)
+        foreach (var icon in AppSettingsData.Instance.AccountsSettings.AccountIcons)
         {
             AccountIconView view = Instantiate(iconViewPrefab, iconsParent);
             view.gameObject.SetActive(true);

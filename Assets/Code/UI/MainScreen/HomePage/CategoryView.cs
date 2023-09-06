@@ -20,7 +20,7 @@ public class CategoryView : MonoBehaviour, ISelectable<CategoryView>
 
     public void Initialize(CategoryType categoryType)
     {
-        CategoryIcon icon = AppSettingsData.Instance.GetCategoryIcon(categoryType);
+        CategoryIcon icon = AppSettingsData.Instance.CategoriesSettings.GetCategoryIcon(categoryType);
         if (icon != null)
             categoryIcon.sprite = icon.Icon;
         Category category = AppSettingsData.Instance.CategoriesSettings.GetCategory(categoryType);

@@ -15,6 +15,8 @@ public class Currency
     [JsonIgnore] public string CurrencyName => currencyName;
     [JsonIgnore] public string CurrencyFullName => currencyFullName;
     [JsonIgnore] public string IconText => iconText;
+
+    [JsonIgnore] public const string TitleProperty = nameof(currencyType);
 }
 
 public enum CurrencyType

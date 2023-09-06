@@ -16,7 +16,7 @@ public class AccountChooseButton : MonoBehaviour
         Account account = SaveData.Instance.AccountsData.SelectedAccount;
         if (account == null) return;
 
-        AccountIcon accountIcon = AppSettingsData.Instance.GetAccountIcon(account.Icon);
+        AccountIcon accountIcon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(account.Icon);
         if (accountIcon != null)
             iconView.SetIcon(accountIcon.Icon);
         IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(account.IconColorType);

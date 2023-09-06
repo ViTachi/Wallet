@@ -12,7 +12,7 @@ public class IconColor
     [JsonProperty, SerializeField] private Color color = Color.white;
     [JsonIgnore] public IconColorType IconColorType => iconColorType;
     [JsonIgnore] public Color Color => color;
-    [JsonIgnore] public const string TitleProp = nameof(iconColorType);
+    [JsonIgnore] public const string TitleProperty = nameof(iconColorType);
 }
 
 public enum IconColorType

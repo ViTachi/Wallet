@@ -1,11 +1,13 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
 public class AccountIcon : IconData
 {
-    [SerializeField] private AccountIconType accountIconType;
-    public AccountIconType AccountIconType => accountIconType;
+    [JsonIgnore, SerializeField] private AccountIconType accountIconType;
+    [JsonIgnore] public AccountIconType AccountIconType => accountIconType;
+    [JsonIgnore] public const string TitleProperty = nameof(accountIconType);
 }
 
 public enum AccountIconType

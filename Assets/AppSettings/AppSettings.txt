@@ -1,6 +1,6 @@
 {
   "mainSettings": {
-    "themeIdByDefault": "314"
+    "themeIdByDefault": "s1"
   },
   "currenciesSettings": {
     "defaultSelectedCurrency": "BYR",

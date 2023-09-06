@@ -10,4 +10,8 @@ public class IncomeSourceSettings
     [JsonIgnore] public IReadOnlyList<IncomeSource> IncomeSources => incomeSources;
 
     [JsonIgnore, SerializeField] private List<IncomeSourceIcon> incomeSourceIcons;
+    [JsonIgnore] public IReadOnlyList<IncomeSourceIcon> IncomeSourceIcons => incomeSourceIcons;
+
+    public IncomeSourceIcon GetIncomeSourceIcon(IncomeSourceIconType iconType) =>
+        incomeSourceIcons.Find(x => x.IncomeSourceIconType == iconType);
 }

@@ -23,7 +23,7 @@ public class AccountView : MonoBehaviour, ISelectable<AccountView>
     public void Initialize (Account account)
     {
         AppSettingsData appSettings = AppSettingsData.Instance;
-        IconData iconData = appSettings.GetAccountIcon(account.Icon);
+        IconData iconData = appSettings.AccountsSettings.GetAccountIcon(account.Icon);
         if(iconData != null)
             iconView.SetIcon(iconData.Icon);
         nameText.text = account.Name;
