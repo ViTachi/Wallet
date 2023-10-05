@@ -12,7 +12,7 @@ public class IncomeSource
 
     [JsonIgnore] public string Id => id;
     [JsonIgnore] public string Name => name;
-    [JsonIgnore] public IncomeSourceIconType Icod => icon;
+    [JsonIgnore] public IncomeSourceIconType Icon => icon;
 
     public IncomeSource(string id, string name, IncomeSourceIconType icon)
     {

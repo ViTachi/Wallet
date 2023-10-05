@@ -6,6 +6,9 @@ public class IncomeSourceSaveData
 {
     [JsonProperty] private List<IncomeSource> incomeSources = new List<IncomeSource>();
     [JsonIgnore] public IReadOnlyList<IncomeSource> IncomeSources => incomeSources;
+
+    public IncomeSource GetIncomeSource(string id) => incomeSources.FirstOrDefault(x => x.Id == id);
+
     public void AddIncomeSource(IncomeSource incomeSource)
     {
         if (!IncomeSources.Any(x => x.Id == incomeSource.Id))

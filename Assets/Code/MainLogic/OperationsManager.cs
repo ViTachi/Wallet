@@ -57,7 +57,7 @@ public class OperationsManager : Singleton<OperationsManager>
         }
         if (!isCustomDate)
         {
-            currentOperationData.SetDate(DateTime.UtcNow);
+            currentOperationData.SetDate(DateTime.Now);
         }
         Account account = SaveData.Instance.AccountsData.GetAccount(currentOperationData.AccountId);
         if (account != null)

@@ -58,6 +58,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6b4b7ab4510784067b289f021108c5aa, type: 3}
   - {fileID: 21300000, guid: 7050dc35968508e4683dac064422bdc9, type: 3}
   - {fileID: 21300000, guid: ebfed08544048cc47b84ae54bac9847c, type: 3}
+  - {fileID: 21300000, guid: 3cfe0f766be5a7147b56112533e2793e, type: 3}
   - {fileID: 21300000, guid: 96d8d296268d4264ab950b3919574aef, type: 3}
   - {fileID: 21300000, guid: 91f131d7b9a6e4a4290f86098fcffe6d, type: 3}
   - {fileID: 21300000, guid: 80576ed79ce2a7d4f9e6c73aa23f1a24, type: 3}
@@ -78,6 +79,7 @@ SpriteAtlas:
   - SoftQuad
   - PieChart
   - Back
+  - Add_Plus
   - Icon
   - Settings
   - CloseButton
