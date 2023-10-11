@@ -19,18 +19,20 @@ public class DayTransactionsView : MonoBehaviour
 
         var currency = AppSettingsData.Instance.CurrenciesSettings.GetCurrency(account.Currency);
         if (currency != null)
-            differenceText.text = $"{operations.Sum(x => x.Value)} {currency.IconText}";
+        {
+            float sum = operations.Sum(x => x.Value);
+            differenceText.text = $"{(sum >= 0 ? "+" : "")}{sum} {currency.IconText}";
+        }
 
         DateTime date = operations[0].DateTime;
-        dateText.text = $"{date.Day}.{date.Month}.{date.Year}";
+        dateText.text = date.ToString("d MMM yyyy");
 
         transactionViewPrefab.gameObject.SetActive(false);
         foreach (var operation in operations)
         {
             TransactionView transactionView = Instantiate(transactionViewPrefab, transactionsParent);
             transactionView.gameObject.SetActive(true);
-            transactionView.Initialize(account.Currency, operation.Icon, operation.Name,
-                operation is ExpenseOperationData ? -operation.Value : operation.Value);
+            transactionView.Initialize(account.Currency, operation.Icon, operation.Name, operation.Value);
             transactions.Add(transactionView);
         }
     }

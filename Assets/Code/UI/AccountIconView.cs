@@ -7,13 +7,14 @@ public class AccountIconView : MonoBehaviour, ISelectable<AccountIconView>
     [SerializeField] private IconView iconView;
     [SerializeField] private RectTransform selectorIcon;
 
-    public bool IsSelected => selectorIcon.gameObject.activeSelf;
+    public bool IsSelected => selectorIcon?.gameObject?.activeSelf ?? false;
 
     public event Action<AccountIconView> OnSelected;
 
     private void Awake()
     {
-        button.OnClick.AddListener(() => OnSelected?.Invoke(this));
+        if(button != null) 
+            button.OnClick.AddListener(() => OnSelected?.Invoke(this));
     }
 
     public void Initialize(AccountIconType accountIconType, IconColorType iconColorType = IconColorType.None)
@@ -23,7 +24,7 @@ public class AccountIconView : MonoBehaviour, ISelectable<AccountIconView>
             iconView.SetIcon(accountIcon.Icon);
         if (iconColorType != IconColorType.None)
         {
-            IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(iconColorType);
+            IconColor iconColor = AppSettingsData.Instance.GetIconColor(iconColorType);
             if (iconColor != null)
             {
                 iconView.SetColor(iconColor.Color);
@@ -38,6 +39,7 @@ public class AccountIconView : MonoBehaviour, ISelectable<AccountIconView>
 
     public void SetIsSelected(bool selected)
     {
-        selectorIcon.gameObject.SetActive(selected);
+        if(selectorIcon != null) 
+            selectorIcon.gameObject.SetActive(selected);
     }
 }

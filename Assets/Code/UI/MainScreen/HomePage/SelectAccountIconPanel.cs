@@ -116,7 +116,7 @@ public class SelectAccountIconPanel : MonoBehaviour
 
         selectedColorType = colorType;
 
-        IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(colorType);
+        IconColor iconColor = AppSettingsData.Instance.GetIconColor(colorType);
         if (iconColor != null)
         {
             foreach (var view in iconViews)
@@ -132,7 +132,7 @@ public class SelectAccountIconPanel : MonoBehaviour
         ClearColors();
 
         colorPickViewPrefab.gameObject.SetActive(false);
-        var colors = AppSettingsData.Instance.AccountsSettings.IconColors;
+        var colors = AppSettingsData.Instance.IconColors;
         for (int i = 0; i < colors.Count; i++)
         {
             if (i >= colorChooseViewCount) break;

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -26,5 +27,14 @@ public class AppSettingsData
     [JsonProperty, SerializeField] private IncomeSourceSettings incomeSourceSettings;
     [JsonIgnore] public IncomeSourceSettings IncomeSourceSettings => incomeSourceSettings;
 
-    
+    #region IconColors
+
+    [JsonProperty, SerializeField, ArrayElements(IconColor.TitleProperty)]
+    private List<IconColor> iconColors;
+
+    [JsonIgnore] public IReadOnlyList<IconColor> IconColors => iconColors;
+
+    public IconColor GetIconColor(IconColorType colorType) => iconColors.Find(x => x.IconColorType == colorType);
+
+    #endregion
 }

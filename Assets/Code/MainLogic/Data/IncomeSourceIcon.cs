@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class IncomeSourceIcon : IconData
 {
     [JsonConverter(typeof(StringEnumConverter))]

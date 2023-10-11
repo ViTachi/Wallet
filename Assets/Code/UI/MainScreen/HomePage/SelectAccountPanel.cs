@@ -46,7 +46,9 @@ public class SelectAccountPanel : MonoBehaviour, IScreenElement
 
     private void OnCreateAccountClicked()
     {
-        UIScreens.Instance.ShowElement<CreateAccountPanel>();
+        CreateAccountPanel createAccountPanel = UIScreens.Instance.GetElement<CreateAccountPanel>();
+        createAccountPanel.Show();
+        createAccountPanel.SetMode(CreateAccountPanel.Mode.Create);
     }
 
     private void ClearAccounts()

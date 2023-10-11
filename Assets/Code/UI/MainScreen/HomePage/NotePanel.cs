@@ -39,8 +39,8 @@ public class NotePanel : MonoBehaviour, IScreenElement
 
     private void Delete()
     {
-        DeletePopup deletePopup = UIScreens.Instance.GetElement<DeletePopup>();
-        deletePopup.Initialize((delete) => {
+        ConfirmationPopup confirmationPopup = UIScreens.Instance.GetElement<ConfirmationPopup>();
+        confirmationPopup.Initialize((delete) => {
             if (delete)
             {
                 OnDelete?.Invoke();
@@ -48,7 +48,7 @@ public class NotePanel : MonoBehaviour, IScreenElement
                 Hide(false);
             }
         }, "Delete this note?");
-        deletePopup.Show();    
+        confirmationPopup.Show();    
     }
 
     public void SetText(string text)

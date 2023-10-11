@@ -1,5 +1,5 @@
+using System.Globalization;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class AccountViewLarge : MonoBehaviour
 {
@@ -29,11 +29,13 @@ public class AccountViewLarge : MonoBehaviour
         Currency currency = appSettings.CurrenciesSettings.GetCurrency(account.Currency);
         if (currency != null)
         {
-            balanceText.text = account.Balance.ToString();
+            string[] parts = account.Balance.ToString("N2", new CultureInfo("en")).Split('.');
+            string fractionalPart = parts.Length > 1 ? parts[1] : string.Empty;
+            balanceText.text = $"{parts[0]}{((string.IsNullOrEmpty(fractionalPart) || fractionalPart == "00") ? "" : $".<color=#3C3C4366>{fractionalPart}</color>")}";
             currencyText.text = currency.IconText;
         }
 
-        IconColor iconColor = appSettings.AccountsSettings.GetIconColor(account.IconColorType);
+        IconColor iconColor = appSettings.GetIconColor(account.IconColorType);
         if (iconColor != null)
             iconView.SetColor(iconColor.Color);
     }

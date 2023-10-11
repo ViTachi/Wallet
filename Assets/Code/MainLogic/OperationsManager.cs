@@ -2,74 +2,111 @@ using System;
 
 public class OperationsManager : Singleton<OperationsManager>
 {
-    private ExpenseOperationData currentOperationData;
-    public ExpenseOperationData CurrentOperationData => currentOperationData;
+    private ExpenseOperationData currentExpenseOperationData;
+    private IncomeOperationData currentIncomeOperationData;
+
 
     private bool isCustomDate = false;
     public bool IsCustomDate => isCustomDate;
 
-    public bool IsOperationNoteEmpty => string.IsNullOrEmpty(currentOperationData.Note);
+    public bool IsOperationNoteEmpty => string.IsNullOrEmpty(currentExpenseOperationData.Note);
 
-    public string Note => currentOperationData.Note;
+    public string Note => currentExpenseOperationData.Note;
 
     public void SetValue(float value)
     {
-        currentOperationData.SetValue(value);
+        currentExpenseOperationData.SetValue(-value);
+        currentIncomeOperationData.SetValue(value);
     }
 
     public void SetCurrentAccount(Account account)
     {
-        currentOperationData.SetAccountId(account.Id);
+        currentExpenseOperationData.SetAccountId(account.Id);
+        currentIncomeOperationData.SetAccountId(account.Id);
     }
 
     public void SetCategoryType(CategoryType categoryType)
     {
-        currentOperationData.SetCategoryType(categoryType);
+        currentExpenseOperationData.SetCategoryType(categoryType);
+    }
+
+    public void SetCurrentIncome(IncomeSource incomeSource)
+    {
+        currentIncomeOperationData.SetIncomeSourceId(incomeSource.Id);
     }
 
     public void SetNote(string note)
     {
-        currentOperationData.SetNote(note);
+        currentExpenseOperationData.SetNote(note);
+        currentIncomeOperationData.SetNote(note);
     }
 
     public void DeleteNote()
     {
-        currentOperationData.SetNote(string.Empty);
+        currentExpenseOperationData.SetNote(string.Empty);
+        currentIncomeOperationData.SetNote(string.Empty);
     }
 
     public void SetCustomDate(DateTime dateTime)
     {
         isCustomDate = true;
-        currentOperationData.SetDate(dateTime);
+        currentExpenseOperationData.SetDate(dateTime);
+        currentIncomeOperationData.SetDate(dateTime);
     }
 
     public void ClearCustomDate()
     {
         isCustomDate = false;
-        currentOperationData.SetDate(default);
+        currentExpenseOperationData.SetDate(default);
+        currentIncomeOperationData.SetDate(default);
     }
 
-    public bool SaveOperation()
+    public bool SaveExpenceOperation()
     {
-        if (currentOperationData.Value == 0 || string.IsNullOrEmpty(currentOperationData.AccountId))
+        if (currentExpenseOperationData.Value == 0 || string.IsNullOrEmpty(currentExpenseOperationData.AccountId))
         {
             return false;
         }
         if (!isCustomDate)
         {
-            currentOperationData.SetDate(DateTime.Now);
+            currentExpenseOperationData.SetDate(DateTime.Now);
         }
-        Account account = SaveData.Instance.AccountsData.GetAccount(currentOperationData.AccountId);
+        Account account = SaveData.Instance.AccountsData.GetAccount(currentExpenseOperationData.AccountId);
         if (account != null)
-            account.Expense(currentOperationData.Value);
-        SaveData.Instance.OperationsData.AddOperation(currentOperationData);
+            account.Income(currentExpenseOperationData.Value);
+        SaveData.Instance.OperationsData.AddExpenceOperation(currentExpenseOperationData);
         SaveData.Save();
-        currentOperationData = new ExpenseOperationData();
+        currentExpenseOperationData = new ExpenseOperationData();
+        currentIncomeOperationData = new IncomeOperationData();
         return true;
     }
 
+
+    public bool SaveIncomeOperation()
+    {
+        if (currentIncomeOperationData.Value == 0 || string.IsNullOrEmpty(currentIncomeOperationData.AccountId)
+            || string.IsNullOrEmpty(currentIncomeOperationData.IncomeSourceId))
+        {
+            return false;
+        }
+        if (!isCustomDate)
+        {
+            currentIncomeOperationData.SetDate(DateTime.Now);
+        }
+        Account account = SaveData.Instance.AccountsData.GetAccount(currentIncomeOperationData.AccountId);
+        if (account != null)
+            account.Income(currentIncomeOperationData.Value);
+        SaveData.Instance.OperationsData.AddIncomeOperation(currentIncomeOperationData);
+        SaveData.Save();
+        currentExpenseOperationData = new ExpenseOperationData();
+        currentIncomeOperationData = new IncomeOperationData();
+        return true;
+    }
+
+
     protected override void Setup()
     {
-        currentOperationData = new ExpenseOperationData();
+        currentExpenseOperationData = new ExpenseOperationData();
+        currentIncomeOperationData = new IncomeOperationData();
     }
 }

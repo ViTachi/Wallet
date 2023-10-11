@@ -20,7 +20,7 @@ public class AccountsSaveData
             {
                 foreach (var account in AppSettingsData.Instance.AccountsSettings.Accounts)
                 {
-                    accounts.Add(account);
+                    accounts.Add((Account)account.Clone());
                 }
             }
             return accounts;
@@ -48,7 +48,7 @@ public class AccountsSaveData
     {
         if (!Accounts.Any(x => x.Id == account.Id))
         {
-            accounts.Add(account);
+            accounts.Add((Account)account.Clone());
             OnAccountsChanged?.Invoke();
             SaveData.Save();
         }    

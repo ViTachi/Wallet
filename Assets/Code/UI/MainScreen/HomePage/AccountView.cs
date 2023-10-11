@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,17 +31,15 @@ public class AccountView : MonoBehaviour, ISelectable<AccountView>
         Currency currency = appSettings.CurrenciesSettings.GetCurrency(account.Currency);
         if (currency != null)
             SetAmount(currency, account.Balance);
-        IconColor iconColor = appSettings.AccountsSettings.GetIconColor(account.IconColorType);
+        IconColor iconColor = appSettings.GetIconColor(account.IconColorType);
         if (iconColor != null)
             iconBackgroundImage.color = iconColor.Color;
     }
 
     public void SetAmount(Currency currency, float balance)
     {
-        currencyImage.gameObject.SetActive(false);// currency.Icon != null);
-        //if (currency.Icon != null)
-        //    currencyImage.sprite = currency.Icon;
-        balanceText.text = $"{balance} {(!string.IsNullOrEmpty(currency.IconText) ? currency.IconText: "")}"; 
+        currencyImage.gameObject.SetActive(false);
+        balanceText.text = $"{balance.ToString("N2", new CultureInfo("en"))} {(!string.IsNullOrEmpty(currency.IconText) ? currency.IconText: "")}"; 
     }
 
     public void SetIsSelected(bool selected)

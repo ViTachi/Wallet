@@ -23,6 +23,8 @@ public class ScalableButton : Selectable, IPointerDownHandler, IPointerUpHandler
         public State state;
         public Graphic graphic;
         public Color color = Color.white;
+        public List<GameObject> disableObjects;
+        public List<GameObject> enableObjects;
 
         public void SetupColor(MonoBehaviour tweenId, float duration = 0)
         {
@@ -51,6 +53,14 @@ public class ScalableButton : Selectable, IPointerDownHandler, IPointerUpHandler
             foreach (var stateSetting in states.Where(x => x.state == state))
             {
                 stateSetting.SetupColor(this, immediately ? 0f : changeColorDuration);
+                foreach (var obj in stateSetting.disableObjects)
+                {
+                    obj.SetActive(false);
+                }
+                foreach (var obj in stateSetting.enableObjects)
+                {
+                    obj.SetActive(true);
+                }
             }
         }
     }

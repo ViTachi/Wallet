@@ -16,7 +16,6 @@ MonoBehaviour:
   appSettingsData:
     mainSettings:
       themeIdByDefault: s1
-      i: 3
     currenciesSettings:
       defaultSelectedCurrency: 3
       currencies:
@@ -66,34 +65,13 @@ MonoBehaviour:
         iconText: real
     accountsSettings:
       accounts:
-      - id: default
-        name: Wallet
-        icon: 1
-        iconColorType: 1
+      - id: cash
+        name: Cash
+        icon: 8
+        iconColorType: 7
         currency: 1
         balance: 0
-      selectedAccountIdByDefault: default
-      iconColors:
-      - iconColorType: 1
-        color: {r: 0.34509805, g: 0.3372549, b: 0.8392157, a: 1}
-      - iconColorType: 2
-        color: {r: 1, g: 0.23137255, b: 0.1882353, a: 1}
-      - iconColorType: 3
-        color: {r: 1, g: 0.58431375, b: 0, a: 1}
-      - iconColorType: 4
-        color: {r: 1, g: 0.8, b: 0, a: 1}
-      - iconColorType: 5
-        color: {r: 0.3529412, g: 0.78431374, b: 0.98039216, a: 1}
-      - iconColorType: 6
-        color: {r: 0, g: 0.47843137, b: 1, a: 1}
-      - iconColorType: 7
-        color: {r: 0.20392157, g: 0.78039217, b: 0.34901962, a: 1}
-      - iconColorType: 8
-        color: {r: 0.6862745, g: 0.32156864, b: 0.87058824, a: 1}
-      - iconColorType: 9
-        color: {r: 1, g: 0.1764706, b: 0.33333334, a: 1}
-      - iconColorType: 10
-        color: {r: 0, g: 0, b: 0, a: 1}
+      selectedAccountIdByDefault: cash
       accountIcons:
       - icon: {fileID: 21300000, guid: b6cd99fc9544faa4d9006d317f183341, type: 3}
         accountIconType: 1
@@ -129,41 +107,6 @@ MonoBehaviour:
         accountIconType: 16
       - icon: {fileID: 21300000, guid: 474f40d41b18dc447b39cc562f818683, type: 3}
         accountIconType: 17
-    accountIcons:
-    - icon: {fileID: 21300000, guid: b6cd99fc9544faa4d9006d317f183341, type: 3}
-      accountIconType: 1
-    - icon: {fileID: 21300000, guid: bc5d8a453519403438bcb81fa790c607, type: 3}
-      accountIconType: 2
-    - icon: {fileID: 21300000, guid: 69d517f7a9941ab4f8289f44765513b4, type: 3}
-      accountIconType: 3
-    - icon: {fileID: 21300000, guid: 3579243908088f044af7955a4a95e92c, type: 3}
-      accountIconType: 4
-    - icon: {fileID: 21300000, guid: a839af863e84985448a68f46fbdda60b, type: 3}
-      accountIconType: 5
-    - icon: {fileID: 21300000, guid: c73e116b4b5410b4f983c6291d65edfd, type: 3}
-      accountIconType: 6
-    - icon: {fileID: 21300000, guid: 9162d9d9017b8dc4e840be9d407a27f5, type: 3}
-      accountIconType: 7
-    - icon: {fileID: 21300000, guid: f94e08de16cd4464993240fd84668220, type: 3}
-      accountIconType: 8
-    - icon: {fileID: 21300000, guid: 9e5fb9712fac2b849aa1cf395462770d, type: 3}
-      accountIconType: 9
-    - icon: {fileID: 21300000, guid: 7241a8366fee40844bdfb3a9d7d2d397, type: 3}
-      accountIconType: 10
-    - icon: {fileID: 21300000, guid: fa0f5d164f06e5642a4134cc2ca69244, type: 3}
-      accountIconType: 11
-    - icon: {fileID: 21300000, guid: 8af02f72192f0e949bd30234419ece52, type: 3}
-      accountIconType: 12
-    - icon: {fileID: 21300000, guid: cc0816bf42970f547a7fc816ba0bb7db, type: 3}
-      accountIconType: 13
-    - icon: {fileID: 21300000, guid: 90640b7d942062c4a9e1c5e375dc2a06, type: 3}
-      accountIconType: 14
-    - icon: {fileID: 21300000, guid: 6b8071c8bf28bd54b8bd764654b815ef, type: 3}
-      accountIconType: 15
-    - icon: {fileID: 21300000, guid: f39dd18963e6c1347b72509257b96a8a, type: 3}
-      accountIconType: 16
-    - icon: {fileID: 21300000, guid: 474f40d41b18dc447b39cc562f818683, type: 3}
-      accountIconType: 17
     categoriesSettings:
       categories:
       - categoryType: 1
@@ -222,31 +165,46 @@ MonoBehaviour:
         categoryIconType: 10
       - icon: {fileID: 21300000, guid: ebf21295880a2734fa3478e305facfe2, type: 3}
         categoryIconType: 11
-    categoryIcons:
-    - icon: {fileID: 21300000, guid: 53cebb8e411443349b557778d198c6e2, type: 3}
-      categoryIconType: 1
-    - icon: {fileID: 21300000, guid: 2629218c2c37de64cb0ba814e80aaa14, type: 3}
-      categoryIconType: 2
-    - icon: {fileID: 21300000, guid: 2c7cdac202c201f4f87297dd6e327f53, type: 3}
-      categoryIconType: 3
-    - icon: {fileID: 21300000, guid: 64ef718137e087345be79aa2d50f58b5, type: 3}
-      categoryIconType: 4
-    - icon: {fileID: 21300000, guid: 17bff67ae3a49e249ad1251ccee04c0a, type: 3}
-      categoryIconType: 5
-    - icon: {fileID: 21300000, guid: 7803f6665020e9145b4ff7109a73d334, type: 3}
-      categoryIconType: 6
-    - icon: {fileID: 21300000, guid: df6866abe74842144b91042807af91e9, type: 3}
-      categoryIconType: 7
-    - icon: {fileID: 21300000, guid: 179f76525809b714f82864fc469c222b, type: 3}
-      categoryIconType: 8
-    - icon: {fileID: 21300000, guid: e51540b746cbf4a46808c2baa74e454f, type: 3}
-      categoryIconType: 9
-    - icon: {fileID: 21300000, guid: 21ad01a77b81e5641a7e85f462b8c6e9, type: 3}
-      categoryIconType: 10
-    - icon: {fileID: 21300000, guid: ebf21295880a2734fa3478e305facfe2, type: 3}
-      categoryIconType: 11
     incomeSourceSettings:
       incomeSources:
-      - id: 0
-        name: source default
+      - id: salary
+        name: Salary
+        icon: 0
+        iconColorType: 5
+      - id: savings
+        name: Savings
         icon: 1
+        iconColorType: 3
+      - id: deposits
+        name: Deposits
+        icon: 2
+        iconColorType: 8
+      selectedIncomeSourceIdByDefault: salary
+      incomeSourceIcons:
+      - icon: {fileID: 21300000, guid: 5dc0dc9a39dcfa145b9d3b767102dd9b, type: 3}
+        incomeSourceIconType: 0
+      - icon: {fileID: 21300000, guid: 5dcefb4849516ff498ca146067fbe9e9, type: 3}
+        incomeSourceIconType: 1
+      - icon: {fileID: 21300000, guid: 11352b9d9edbfff44a839e906d6f9b67, type: 3}
+        incomeSourceIconType: 2
+    iconColors:
+    - iconColorType: 1
+      color: {r: 0.34509805, g: 0.3372549, b: 0.8392157, a: 1}
+    - iconColorType: 2
+      color: {r: 1, g: 0.23137255, b: 0.1882353, a: 1}
+    - iconColorType: 3
+      color: {r: 1, g: 0.58431375, b: 0, a: 1}
+    - iconColorType: 4
+      color: {r: 1, g: 0.8, b: 0, a: 1}
+    - iconColorType: 5
+      color: {r: 0.3529412, g: 0.78431374, b: 0.98039216, a: 1}
+    - iconColorType: 6
+      color: {r: 0, g: 0.47843137, b: 1, a: 1}
+    - iconColorType: 7
+      color: {r: 0.20392157, g: 0.78039217, b: 0.34901962, a: 1}
+    - iconColorType: 8
+      color: {r: 0.6862745, g: 0.32156864, b: 0.87058824, a: 1}
+    - iconColorType: 9
+      color: {r: 1, g: 0.1764706, b: 0.33333334, a: 1}
+    - iconColorType: 10
+      color: {r: 0, g: 0, b: 0, a: 1}

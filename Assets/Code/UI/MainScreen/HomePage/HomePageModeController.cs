@@ -7,7 +7,10 @@ public class HomePageModeController : MonoBehaviour
     [SerializeField] private ValueInputController valueInputController;
     [SerializeField] private ModeSlider modeSlider;
     [SerializeField] private ScalableButton transferButton;
-    [SerializeField] private ScalableButton selectAccountButton;
+
+    [Space]
+    [SerializeField] private RectTransform expenceAccountChooseView;
+    [SerializeField] private RectTransform incomeChooseView;
 
     [Space, Header("Action Buttons")]
   
@@ -31,7 +34,6 @@ public class HomePageModeController : MonoBehaviour
     {
         addButton.OnClick.AddListener(OnAdd);
         transferButton.OnClick.AddListener(OnTransfer);
-        selectAccountButton.OnClick.AddListener(OpenSelectAccountPanel);
         noteButton.OnClick.AddListener(OpenNote);
         calendarButton.OnClick.AddListener(OpenCalendar);
 
@@ -73,11 +75,6 @@ public class HomePageModeController : MonoBehaviour
         PremiumMode.OnModeChanged -= OnPremiumModeChanged;
     }
 
-    private void OpenSelectAccountPanel()
-    {
-        UIScreens.Instance.ShowElement<SelectAccountPanel>();
-    }
-
     private void OpenNote()
     {
         notePanel.SetDeleteButtonActive(!operationsManager.IsOperationNoteEmpty);
@@ -109,8 +106,28 @@ public class HomePageModeController : MonoBehaviour
     private void OnAdd()
     {
         if (valueInputController.CurrentVulue == 0) return;
+
+
         operationsManager.SetValue(valueInputController.CurrentVulue);
-        OpenCategorySelect();
+        switch (currentMode)
+        {
+            case Mode.None: break;
+            case Mode.Expense:
+                OpenCategorySelect();
+                break;
+            case Mode.Income:
+                operationsManager.SetCurrentAccount(SaveData.Instance.AccountsData.SelectedAccount);
+                operationsManager.SetCurrentIncome(SaveData.Instance.IncomeSourceData.SelectedIncomeSource);
+                operationsManager.SaveIncomeOperation();
+                valueInputController.ResetContoller();
+                break;
+            case Mode.Transfer: break;
+            default:
+                break;
+        }
+
+        
+        
     }
 
     private void OnTransfer()
@@ -132,13 +149,8 @@ public class HomePageModeController : MonoBehaviour
     {
         operationsManager.SetCurrentAccount(SaveData.Instance.AccountsData.SelectedAccount);
         operationsManager.SetCategoryType(categoryType);
-        SaveOperation();
+        operationsManager.SaveExpenceOperation();
         valueInputController.ResetContoller();
-    }
-
-    private void SaveOperation()
-    {
-        operationsManager.SaveOperation();
     }
 
     private void OnValueChanged(float value)
@@ -159,13 +171,16 @@ public class HomePageModeController : MonoBehaviour
 
     private void SetMode(Mode mode)
     {
+        currentMode = mode;
         SetDefaults();
         switch (mode)
         {
             case Mode.Expense:
+                expenceAccountChooseView.gameObject.SetActive(true);
                 addButton.gameObject.SetActive(true);
                 break;
             case Mode.Income:
+                incomeChooseView.gameObject.SetActive(true);
                 addButton.gameObject.SetActive(true);
                 break;
             case Mode.Transfer:
@@ -186,6 +201,9 @@ public class HomePageModeController : MonoBehaviour
     {
         transferButton.gameObject.SetActive(false);
         addButton.gameObject.SetActive(false);
+
+        expenceAccountChooseView.gameObject.SetActive(false);
+        incomeChooseView.gameObject.SetActive(false);
     }
 
     private void OnPremiumModeChanged(PremiumMode.Mode mode)

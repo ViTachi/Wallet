@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using UnityEngine;
 
 [System.Serializable]
-public class Account
+public class Account : ICloneable
 {
     [JsonProperty, SerializeField] private string id;
     [JsonProperty, SerializeField] private string name;
@@ -38,5 +39,10 @@ public class Account
     public void SetIconColorType(IconColorType iconColorType) => this.iconColorType = iconColorType;
     public void SetCurrency(CurrencyType currency) => this.currency = currency;
     public void SetBalance(float balance) => this.balance = balance;
-    public void Expense(float value) => balance -= value;
+    public void Income(float value) => balance += value;
+
+    public object Clone()
+    {
+        return MemberwiseClone();
+    }
 }

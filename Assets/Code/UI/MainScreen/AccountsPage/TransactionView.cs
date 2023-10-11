@@ -20,7 +20,7 @@ public class TransactionView : MonoBehaviour
         differenceText.color = difference > 0 ? incomeTextColor : expenseTextColor;
         var currency = AppSettingsData.Instance.CurrenciesSettings.GetCurrency(currencyType);
         if (currency != null)
-            differenceText.text = $"{difference} {currency.IconText}";
+            differenceText.text = $"{(difference >= 0 ? "+" : "")}{difference} {currency.IconText}";
         categoryName.text = name;
         _categoryIcon.sprite = icon;
     }

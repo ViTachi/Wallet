@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +12,13 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     [SerializeField] private Color backgroundColor = Color.white;
     [SerializeField] private CanvasGroup headerGroup;
     [SerializeField] private RectTransform contentRT;
+    [SerializeField] private RectTransform createAccountTitle;
+    [SerializeField] private RectTransform editAccountTitle;
     [SerializeField] private TMPro.TMP_Text selectedCurrencyText;
 
     [SerializeField] private ScalableButton okButton;
+    [SerializeField] private ScalableButton deleteAccountButton;
+
     [SerializeField] private TMPro.TMP_InputField accountNameField;
     [SerializeField] private TMPro.TMP_InputField balanceField;
     [SerializeField] private IconView selectedIconView;
@@ -26,12 +32,25 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     private CurrencyType selectedCurrency = CurrencyType.None;
     private IconColorType selectedColorType = IconColorType.None;
 
+    private Mode currentMode = Mode.None;
+    private Account editAccount = null;
+    private bool isAccountDataChanged = false;
+
+    public event Action<Account> OnAccountDataChanged;
+    public event Action<Account> OnAccountCreated;
+
+    public enum Mode { None, Create, Edit }
+
     private void Awake()
     {
-        closeButton.OnClick.AddListener(() => Hide(false));
+        closeButton.OnClick.AddListener(OnCloseClicked);
         okButton.OnClick.AddListener(OnOkClicked);
         chooseCurrencyButton.OnClick.AddListener(OnChooseCurrency);
         chooseIconButton.OnClick.AddListener(OnChooseIcon);
+        deleteAccountButton.OnClick.AddListener(OnDeleteClicked);
+
+        accountNameField.onValueChanged.AddListener((value) => isAccountDataChanged = true);
+        balanceField.onValueChanged.AddListener((value) => isAccountDataChanged = true);
     }
 
     private void OnEnable()
@@ -59,7 +78,9 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
         if(currency != null)
         {
             selectedCurrencyText.text = currency.IconText != null ? currency.IconText : currency.CurrencyName;
-        }        
+        }
+
+        isAccountDataChanged = true;
     }
 
     private void SetSelectedIcon(AccountIconType iconType)
@@ -68,14 +89,18 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
         AccountIcon icon = AppSettingsData.Instance.AccountsSettings.GetAccountIcon(iconType);
         if(icon != null)
             selectedIconView.SetIcon(icon.Icon);
+
+        isAccountDataChanged = true;
     }
 
     private void SetSelectedColor(IconColorType colorType)
     {
         selectedColorType = colorType;
-        IconColor iconColor = AppSettingsData.Instance.AccountsSettings.GetIconColor(colorType);
+        IconColor iconColor = AppSettingsData.Instance.GetIconColor(colorType);
         if (iconColor != null)
             selectedIconView.SetColor(iconColor.Color);
+
+        isAccountDataChanged = true;
     }
 
     private void OnOkClicked()
@@ -83,14 +108,38 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
         if (!ValidateAccountData()) return;
 
         bool balanceValid = float.TryParse(balanceField.text, out float balance);
-        Account account = new Account(accountNameField.text, accountNameField.text, selectedIcon,
-            selectedColorType, selectedCurrency, balanceValid ? balance : 0f);
 
-        SaveData.Instance.AccountsData.AddAccount(account);
+        switch (currentMode)
+        {
+            case Mode.None:
+                break;
+            case Mode.Create:
+                Account account = new Account(Guid.NewGuid().ToString(), accountNameField.text, selectedIcon,
+                    selectedColorType, selectedCurrency, balanceValid ? balance : 0f);
 
-        MessagePopup messagePopup = UIScreens.Instance.GetElement<MessagePopup>();
-        messagePopup.Initialize("Account Created");
-        messagePopup.Show();
+                SaveData.Instance.AccountsData.AddAccount(account);
+
+                MessagePopup messagePopup = UIScreens.Instance.GetElement<MessagePopup>();
+                messagePopup.Initialize("Account Created");
+                messagePopup.Show();
+
+                OnAccountCreated?.Invoke(account);
+                break;
+            case Mode.Edit:
+                if (editAccount == null)
+                    break;
+
+                editAccount.SetName(accountNameField.text);
+                editAccount.SetIcon(selectedIcon);
+                editAccount.SetCurrency(selectedCurrency);
+                editAccount.SetBalance(balance);
+                SaveData.Save();
+
+                OnAccountDataChanged?.Invoke(editAccount);
+                break;
+            default:
+                break;
+        }
 
         Hide(false);
     }
@@ -98,6 +147,33 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
     private bool ValidateAccountData()
     {
         return true;
+    }
+
+    private void OnDeleteClicked()
+    {
+        AccountsSaveData accountsData = SaveData.Instance.AccountsData;
+        if (accountsData.Accounts.Count < 2) return;
+
+        ConfirmationPopup confirmationPopup = UIScreens.Instance.GetElement<ConfirmationPopup>();
+        confirmationPopup.Initialize((delete) => {
+            if (delete)
+            {
+                if (accountsData.SelectedAccount == editAccount)
+                    accountsData.SelectedAccountId = accountsData.Accounts
+                    .Where(x => x.Id != editAccount.Id).First()?.Id ?? null;
+
+                accountsData.RemoveAccount(editAccount);
+
+                MessagePopup messagePopup = UIScreens.Instance.GetElement<MessagePopup>();
+                messagePopup.Initialize("Account Deleted");
+                messagePopup.Show();
+
+                Hide(false);
+
+                OnAccountDataChanged?.Invoke(editAccount);
+            }
+        }, "Delete this Account?");
+        confirmationPopup.Show();
     }
 
     private void OnChooseCurrency()
@@ -125,11 +201,62 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
         SetSelectedCurrency(AppSettingsData.Instance.CurrenciesSettings.DefaultSelectedCurrency);
         if(AppSettingsData.Instance.AccountsSettings.AccountIcons.Count > 0)
             SetSelectedIcon(AppSettingsData.Instance.AccountsSettings.AccountIcons[0].AccountIconType);
-        if (AppSettingsData.Instance.AccountsSettings.IconColors.Count > 0)
-            SetSelectedColor(AppSettingsData.Instance.AccountsSettings.IconColors[0].IconColorType);
+        if (AppSettingsData.Instance.IconColors.Count > 0)
+            SetSelectedColor(AppSettingsData.Instance.IconColors[0].IconColorType);
 
         accountNameField.text = string.Empty;
         balanceField.text = string.Empty;
+        isAccountDataChanged = false;
+    }
+
+    public void SetMode(Mode mode)
+    {
+        if(currentMode == mode) return;
+
+        currentMode = mode;
+        SetDeleteButtonActive(false);
+        chooseCurrencyButton.SetState(ScalableButton.State.Disabled);
+        chooseCurrencyButton.interactable = false;
+
+        createAccountTitle.gameObject.SetActive(false);
+        editAccountTitle.gameObject.SetActive(false);
+
+        switch (mode)
+        {
+            case Mode.None:
+                break;
+            case Mode.Create:
+                createAccountTitle.gameObject.SetActive(true);
+                chooseCurrencyButton.interactable = true;
+                chooseCurrencyButton.SetState(ScalableButton.State.Active);
+                break;
+            case Mode.Edit:
+                editAccountTitle.gameObject.SetActive(true);
+                SetDeleteButtonActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetAccountForEdit(Account account)
+    {
+        if(account == null) return;
+
+        editAccount = account;
+
+        accountNameField.text = account.Name;
+        balanceField.text = account.Balance.ToString();
+        SetSelectedIcon(account.Icon);
+        SetSelectedColor(account.IconColorType);
+        SetSelectedCurrency(account.Currency);
+
+        isAccountDataChanged = false;
+    }
+
+    private void SetDeleteButtonActive(bool active)
+    {
+        deleteAccountButton.gameObject.SetActive(active);
     }
 
     public void Hide(bool immediately = false)
@@ -179,5 +306,22 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
             contentRT.DOAnchorPosX(-contentRT.rect.width, 0.3f).SetUpdate(true).SetId(this)
                 .OnComplete(() => contentRT.gameObject.SetActive(false));
         }
+    }
+
+    private void OnCloseClicked()
+    {
+        if (isAccountDataChanged)
+        {
+            ConfirmationPopup confirmationPopup = UIScreens.Instance.GetElement<ConfirmationPopup>();
+            confirmationPopup.Initialize((confirm) => {
+                if (confirm)
+                {
+                    Hide(false);
+                }
+            }, "Discard all changes?", ConfirmationPopup.Variant.Discard);
+            confirmationPopup.Show();
+        }
+        else
+            Hide(false);
     }
 }
