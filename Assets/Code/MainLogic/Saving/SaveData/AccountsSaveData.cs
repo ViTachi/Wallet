@@ -53,11 +53,13 @@ public class AccountsSaveData
             SaveData.Save();
         }    
     }
-    public void RemoveAccount(Account account)
+    public void RemoveAccount(string accountId)
     {
-        if (Accounts.Contains(account))
+        if (Accounts.Where(x => x.Id == accountId).Count() > 0)
         {
-            accounts.Remove(account);
+            accounts.RemoveAll(x => x.Id == accountId);
+            if (SelectedAccountId == accountId)
+                SelectedAccountId = Accounts.First()?.Id ?? null;
             OnAccountsChanged?.Invoke();
             SaveData.Save();
         }

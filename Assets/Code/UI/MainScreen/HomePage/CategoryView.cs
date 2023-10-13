@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CategoryView : MonoBehaviour, ISelectable<CategoryView>
 {
     [SerializeField] private ScalableButton button;
-    [SerializeField] private Image categoryIcon;
+    [SerializeField] private IconView categoryIcon;
     [SerializeField] private Graphic background;
     [SerializeField] private TMPro.TMP_Text categoryName;
 
@@ -22,7 +22,7 @@ public class CategoryView : MonoBehaviour, ISelectable<CategoryView>
     {
         CategoryIcon icon = AppSettingsData.Instance.CategoriesSettings.GetCategoryIcon(categoryType);
         if (icon != null)
-            categoryIcon.sprite = icon.Icon;
+            categoryIcon.SetIcon(icon.Icon);
         Category category = AppSettingsData.Instance.CategoriesSettings.GetCategory(categoryType);
         if (category != null)
         {

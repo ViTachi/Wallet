@@ -11,8 +11,8 @@ public class IncomeOperationData : IOperation
     [JsonProperty] public string Note { get; private set; }
 
     [JsonIgnore] public Sprite Icon => AppSettingsData.Instance.IncomeSourceSettings
-        .GetIncomeSourceIcon(SaveData.Instance.IncomeSourceData.GetIncomeSource(IncomeSourceId).Icon).Icon;
-    [JsonIgnore] public string Name => SaveData.Instance.IncomeSourceData.GetIncomeSource(IncomeSourceId).Name;
+        .GetIncomeSourceIcon(SaveData.Instance.IncomeSourceData.GetPermanentIncomeSource(IncomeSourceId).Icon).Icon;
+    [JsonIgnore] public string Name => SaveData.Instance.IncomeSourceData.GetPermanentIncomeSource(IncomeSourceId).Name;
 
     public void SetValue(float value) => Value = value;
     public void SetIncomeSourceId(string incomeSourceId) => IncomeSourceId = incomeSourceId;

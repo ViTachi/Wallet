@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IncomeSourceIconsSA
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6821de6933fead54a83151b7d2d3c728, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9aafbf41fc0d60f4f8cb189cc5a4e527, type: 3}
+  - {fileID: 21300000, guid: f159c6f1c3b222f4cbe0e955b5b45ab7, type: 3}
+  - {fileID: 21300000, guid: b90a50a21f4d2c04a840521dfba1d847, type: 3}
+  - {fileID: 21300000, guid: e623bd2573e4a504ba8573c29f619283, type: 3}
+  - {fileID: 21300000, guid: 72e9e6a6d83c2b149ba04f44f7b315f4, type: 3}
+  - {fileID: 21300000, guid: 5dcefb4849516ff498ca146067fbe9e9, type: 3}
+  - {fileID: 21300000, guid: 5dc0dc9a39dcfa145b9d3b767102dd9b, type: 3}
+  - {fileID: 21300000, guid: a5845c1bd1aabb74580336c07ebfea15, type: 3}
+  - {fileID: 21300000, guid: 11352b9d9edbfff44a839e906d6f9b67, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bullion
+  - coin-bundle
+  - BTC
+  - Card add
+  - wallet-send-vertical
+  - SavingsIcon
+  - SalaryIcon
+  - Gift
+  - DepositsIcon
+  m_RenderDataMap: {}
+  m_Tag: IncomeSourceIconsSA
+  m_IsVariant: 0

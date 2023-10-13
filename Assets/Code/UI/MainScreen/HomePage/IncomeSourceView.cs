@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class IncomeSourceView : MonoBehaviour, ISelectable<IncomeSourceView>
 {
     [SerializeField] private ScalableButton button;
-    [SerializeField] private Image sourceIcon;
+    [SerializeField] private IconView iconView;
     [SerializeField] private Graphic background;
     [SerializeField] private TMPro.TMP_Text sourceName;
+    [SerializeField] private GameObject removeIcon;
 
     public bool IsSelected => false;
 
@@ -22,7 +23,7 @@ public class IncomeSourceView : MonoBehaviour, ISelectable<IncomeSourceView>
     {
         IncomeSourceIcon icon = AppSettingsData.Instance.IncomeSourceSettings.GetIncomeSourceIcon(incomeSource.Icon);
         if (icon != null)
-            sourceIcon.sprite = icon.Icon;
+            iconView.SetIcon(icon.Icon);
 
         sourceName.text = incomeSource.Name;
         IconColor iconColor = AppSettingsData.Instance.GetIconColor(incomeSource.IconColorType);
@@ -31,9 +32,11 @@ public class IncomeSourceView : MonoBehaviour, ISelectable<IncomeSourceView>
             Color backgroundColor = iconColor.Color;
             backgroundColor.a = 0.05f;
             background.color = backgroundColor;
-            sourceIcon.color = iconColor.Color;
+            iconView.SetColor(iconColor.Color);
         }
     }
+
+    public void SetRemoveButtonActive(bool active) => removeIcon.gameObject.SetActive(active);
 
     public void SetIsSelected(bool selected)
     {

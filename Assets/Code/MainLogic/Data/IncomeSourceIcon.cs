@@ -14,5 +14,13 @@ public class IncomeSourceIcon : IconData
 
 public enum IncomeSourceIconType
 {
-    Salary, Savings, Deposits
+    Salary, 
+    Savings, 
+    Deposits, 
+    Coins, 
+    Wallet, 
+    Gold, 
+    Card, 
+    Bitcoin, 
+    Gift
 }

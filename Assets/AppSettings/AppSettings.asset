@@ -187,6 +187,18 @@ MonoBehaviour:
         incomeSourceIconType: 1
       - icon: {fileID: 21300000, guid: 11352b9d9edbfff44a839e906d6f9b67, type: 3}
         incomeSourceIconType: 2
+      - icon: {fileID: 21300000, guid: f159c6f1c3b222f4cbe0e955b5b45ab7, type: 3}
+        incomeSourceIconType: 3
+      - icon: {fileID: 21300000, guid: 72e9e6a6d83c2b149ba04f44f7b315f4, type: 3}
+        incomeSourceIconType: 4
+      - icon: {fileID: 21300000, guid: 9aafbf41fc0d60f4f8cb189cc5a4e527, type: 3}
+        incomeSourceIconType: 5
+      - icon: {fileID: 21300000, guid: e623bd2573e4a504ba8573c29f619283, type: 3}
+        incomeSourceIconType: 6
+      - icon: {fileID: 21300000, guid: b90a50a21f4d2c04a840521dfba1d847, type: 3}
+        incomeSourceIconType: 7
+      - icon: {fileID: 21300000, guid: a5845c1bd1aabb74580336c07ebfea15, type: 3}
+        incomeSourceIconType: 8
     iconColors:
     - iconColorType: 1
       color: {r: 0.34509805, g: 0.3372549, b: 0.8392157, a: 1}

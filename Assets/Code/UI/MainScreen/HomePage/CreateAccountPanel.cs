@@ -158,11 +158,7 @@ public class CreateAccountPanel : MonoBehaviour, IScreenElement
         confirmationPopup.Initialize((delete) => {
             if (delete)
             {
-                if (accountsData.SelectedAccount == editAccount)
-                    accountsData.SelectedAccountId = accountsData.Accounts
-                    .Where(x => x.Id != editAccount.Id).First()?.Id ?? null;
-
-                accountsData.RemoveAccount(editAccount);
+                accountsData.RemoveAccount(editAccount.Id);
 
                 MessagePopup messagePopup = UIScreens.Instance.GetElement<MessagePopup>();
                 messagePopup.Initialize("Account Deleted");

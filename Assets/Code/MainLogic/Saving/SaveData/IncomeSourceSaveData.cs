@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 public class IncomeSourceSaveData
 {
     [JsonProperty] private List<IncomeSource> incomeSources = new List<IncomeSource>();
+    [JsonProperty] private List<IncomeSource> permanentIncomeSources = new List<IncomeSource>();
     [JsonProperty] private string selectedIncomeSourceId = null;
 
     public event System.Action OnIncomeSourcesChanged;
@@ -20,11 +21,14 @@ public class IncomeSourceSaveData
                 foreach (var incomeSource in AppSettingsData.Instance.IncomeSourceSettings.IncomeSources)
                 {
                     incomeSources.Add((IncomeSource)incomeSource.Clone());
+                    permanentIncomeSources.Add((IncomeSource)incomeSource.Clone());
                 }
             }
             return incomeSources;
         }
     }
+
+    [JsonIgnore] public IReadOnlyList<IncomeSource> PermanentIncomeSources => permanentIncomeSources;
 
     [JsonIgnore]
     public string SelectedIncomeSourceId
@@ -44,22 +48,26 @@ public class IncomeSourceSaveData
     }
 
     public IncomeSource GetIncomeSource(string id) => IncomeSources.FirstOrDefault(x => x.Id == id);
+    public IncomeSource GetPermanentIncomeSource(string id) => PermanentIncomeSources.FirstOrDefault(x => x.Id == id);
 
     public void AddIncomeSource(IncomeSource incomeSource)
     {
         if (!IncomeSources.Any(x => x.Id == incomeSource.Id))
         {
             incomeSources.Add((IncomeSource)incomeSource.Clone());
+            permanentIncomeSources.Add((IncomeSource)incomeSource.Clone());
             OnIncomeSourcesChanged?.Invoke();
             SaveData.Save();
         }
 
     }
-    public void RemoveIncomeSource(IncomeSource incomeSource)
+    public void RemoveIncomeSource(string incomeSourceId)
     {
-        if (IncomeSources.Contains(incomeSource))
+        if (IncomeSources.Where(x => x.Id == incomeSourceId).Count() > 0)
         {
-            incomeSources.Remove(incomeSource);
+            incomeSources.RemoveAll(x => x.Id == incomeSourceId);
+            if (SelectedIncomeSourceId == incomeSourceId)
+                SelectedIncomeSourceId = IncomeSources.First()?.Id ?? null;
             OnIncomeSourcesChanged?.Invoke();
             SaveData.Save();
         }
