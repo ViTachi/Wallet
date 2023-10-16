@@ -167,6 +167,6 @@ public class ValueInputController : MonoBehaviour
 
     private float CalculateValue()
     {
-        return float.Parse($"{wholeValue},{fractionalValue}");
+        return float.Parse($"{wholeValue}.{fractionalValue}");
     }
 }
