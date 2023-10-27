@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -167,6 +168,6 @@ public class ValueInputController : MonoBehaviour
 
     private float CalculateValue()
     {
-        return float.Parse($"{wholeValue}.{fractionalValue}");
+        return float.Parse($"{wholeValue}.{fractionalValue}", CultureInfo.InvariantCulture);
     }
 }

@@ -39,7 +39,7 @@ public class AccountView : MonoBehaviour, ISelectable<AccountView>
     public void SetAmount(Currency currency, float balance)
     {
         currencyImage.gameObject.SetActive(false);
-        balanceText.text = $"{balance.ToString("N2", new CultureInfo("en"))} {(!string.IsNullOrEmpty(currency.IconText) ? currency.IconText: "")}"; 
+        balanceText.text = $"{string.Format("{0:0.##}", balance)} {(!string.IsNullOrEmpty(currency.IconText) ? currency.IconText: "")}"; 
     }
 
     public void SetIsSelected(bool selected)
